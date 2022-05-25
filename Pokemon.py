@@ -124,6 +124,7 @@ class Pokemon:
                 moves["Rock Slide"]
             ]
 
+        #comment
         elif self.name=="Stoney":
             self.type="rock"
             self.lvl=50

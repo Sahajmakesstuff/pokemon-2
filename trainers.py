@@ -102,4 +102,6 @@ class Trainer:
         if done==1:
             print("You defeated",self.name,"!")
 
+            #comment
+
 

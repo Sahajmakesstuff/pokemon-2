@@ -4,6 +4,7 @@ class Move:
         self.type=type
         self.power=power
 
+#comment
 moves = {
     "Flamethrower": Move("Flamethrower", "fire", 90),
     "Ember": Move("Ember","fire",40),

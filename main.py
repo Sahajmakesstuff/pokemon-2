@@ -2,6 +2,7 @@ from Pokemon import *
 from moves import *
 from trainers import *
 
+#This is a comment
 print("\nThere are 3 Pokemon for you to choose from")
 
 fire_mon=Pokemon("Flamey")
@@ -53,7 +54,7 @@ while d_choosing==0:
 
 available_mons=["Flamey","Bubbly","Leafy","Zapper","Icy","Dracomenace",
                 "Groundian","Stoney","Metaleon","Chunky","Misteon","Fisty"]
-                
+
 trainer_1_mon=random.choice(available_mons)
 trainer_1_mons=[]
 trainer_1_mons.append(trainer_1_mon)
