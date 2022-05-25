@@ -1,0 +1,21 @@
+Trainer
+|- Name
+|- List of Pokemon
+    |- Pokemon
+        |- Name
+        |- type
+        |- stats
+        |- Moves (by ref)
+            |- Move
+                |- Name
+                |- type
+                |- stats
+    
+Player (Trainer)
+    choose()
+
+fight(player, Trainer)
+
+Level_up()
+
+Heal()
