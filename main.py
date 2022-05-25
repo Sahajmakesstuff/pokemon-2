@@ -52,7 +52,7 @@ while d_choosing==0:
         print("Invalid Pokemon")
 
 available_mons=["Flamey","Bubbly","Leafy","Zapper","Icy","Dracomenace",
-                "Groundian","Stoney","Metalion","Chunky","Misteon","Fisty"]
+                "Groundian","Stoney","Metaleon","Chunky","Misteon","Fisty"]
 trainer_1_mon=random.choice(available_mons)
 trainer_1_mons=[]
 trainer_1_mons.append(trainer_1_mon)

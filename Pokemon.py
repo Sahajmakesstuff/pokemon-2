@@ -80,7 +80,7 @@ class Pokemon:
             ]
         
         elif self.name=="Icy":
-            self.type="Ice"
+            self.type="ice"
             self.lvl=50
             self.base_hp=60
             self.base_att=110
