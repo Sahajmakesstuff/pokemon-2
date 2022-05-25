@@ -1,8 +1,12 @@
 from Pokemon import *
+import math
+import random
+
 class Trainer:
     def __init__(self,name,pokemon_names):
         self.name=name
         self.pokemon=[]
+        self.opponent=0
 
         for i in pokemon_names:
             pokemon_i=Pokemon(i)
@@ -15,53 +19,34 @@ class Trainer:
             i.calc_stats()
             i.displaying()
 
-def choose():
-    print("\nThere are 3 Pokemon for you to choose from")
+    def fight(self,Player):
+        self.opponent=Player
+        print("\nYou are fighting against",self.name)
+        print("They sent out",self.pokemon[0].name)
 
-    fire_mon=Pokemon("Flamey")
-    fire_mon.nat_b()
-    fire_mon.calc_stats()
-    fire_mon.displaying()
+        self.pokemon[0].nat_b()
+        self.pokemon[0].calc_stats()
 
-    water_mon=Pokemon("Bubbly")
-    water_mon.nat_b()
-    water_mon.calc_stats()
-    water_mon.displaying()
+        print("\nYou sent out",self.opponent.pokemon[0].name)
 
-    grass_mon=Pokemon("Leafy")
-    grass_mon.nat_b()
-    grass_mon.calc_stats()
-    grass_mon.displaying()
+        print("Your",self.opponent.pokemon[0].name,"is at",self.opponent.pokemon[0].hp,"HP")
+        print("Your",self.pokemon[0].name,"is at",self.pokemon[0].hp,"HP")
 
-    d_choosing=0
-
-    while d_choosing==0:
-        chosen=input("\nWhich one would you like to choose? \n(Enter Number from 1-3 corresponding to the Pokemon) ")
+        print("\nYour moves are:")
+        for i in self.opponent.pokemon[0].moves:
+            print(i.name)
+        
+        move_chosen=input("Which Move would you like to Use? ")
 
         try:
-            chosen_int=int(chosen)
-            our_mons=[]
+            move_chosen=int(move_chosen)
+            move_used=self.opponent.pokemon[0].moves[move_chosen-1].name
+            print("\nYour",self.opponent.pokemon[0].name,"used",move_used)
 
-            Player=Trainer("player",our_mons)
-
-            if chosen_int>0 and chosen_int<4:
-                if chosen_int==1:
-                    print("\nYou Chose Flamey, The Fire Type Pokemon!")
-                    our_mons.append(fire_mon)
-                    d_choosing=1
-                
-                elif chosen_int==2:
-                    print("\nYou Chose Bubbly, The Water Type Pokemon!")
-                    our_mons.append(water_mon)
-                    d_choosing=1
-
-                else:
-                    print("\nYou Chose Leafy, The Grass Type Pokemon!")
-                    our_mons.append(grass_mon)
-                    d_choosing=1
-            
-            else:
-                print("Invalid Pokemon")
+            # damage_p=math.ceil(self.opponent.pokemon[0].moves[move_chosen-1].power*
+            #                    ((self.opponent.pokemon[0].att/self.pokemon[0].defe)/25)+1
+            #                    )
+            # print(damage_p)
 
         except ValueError as ve:
-            print("Invalid Pokemon")
+            print("Invalid Move")
