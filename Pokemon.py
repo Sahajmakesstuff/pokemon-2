@@ -4,10 +4,12 @@ import math
 from moves import *
 
 #list of natures
-list_nat=["lonely","brave","adamant","naughty",
-         "bold","relaxed","impish","lax",
-         "timid","hasty","jolly","naive",
-         "modest","mild","quiet","rash"]
+list_nat=["lonely (+att -defe)","brave (+att -spd)","adamant (+att -spatt)","naughty (+att -spdef)",
+         "bold (+defe -att)","relaxed (+defe -spd)","impish (+defe -spatt)","lax (+defe -spdef)",
+         "timid (+spd -att)","hasty (+spd -defe)","jolly (+spd -spatt)","naive (+spd -spdef)",
+         "modest (+spatt -att)","mild (+spatt -defe)","quiet (+spatt -spd)","rash (+spatt -spdef)",
+         "calm (+spdef -att)","gentle (+spdef -defe)","sassy (+spdef -spd)","careful (+spdef -spatt)",
+         "bashful (neutral)"]
 
 #pokemon class
 class Pokemon:
@@ -386,69 +388,85 @@ class Pokemon:
 
     #nature boost
     def nat_b(self):
-        if self.nature=="lonely":
+        if self.nature=="lonely (+att -defe)":
             self.att_b=1.2
             self.def_b=0.8
             
-        elif self.nature=="brave":
+        elif self.nature=="brave (+att -spd)":
             self.att_b=1.2
             self.spd_b=0.8
 
-        elif self.nature=="adamant":
+        elif self.nature=="adamant (+att -spatt)":
             self.att_b=1.2
             self.spatt_b=0.8
         
-        elif self.nature=="naughty":
+        elif self.nature=="naughty (+att -spdef)":
             self.att_b=1.2
             self.spdef_b=0.8
 
-        elif self.nature=="bold":
+        elif self.nature=="bold (+defe -att)":
             self.def_b=1.2
             self.att_b=0.8
         
-        elif self.nature=="relaxed":
+        elif self.nature=="relaxed (+defe -spd)":
             self.def_b=1.2
             self.spd_b=0.8
         
-        elif self.nature=="impish":
+        elif self.nature=="impish (+defe -spatt)":
             self.def_b=1.2
             self.spatt_b=0.8
         
-        elif self.nature=="lax":
+        elif self.nature=="lax (+defe -spdef)":
             self.def_b=1.2
             self.spdef_b=0.8
         
-        elif self.nature=="timid":
+        elif self.nature=="timid (+spd -att)":
             self.spd_b=1.2
             self.att_b=0.8
 
-        elif self.nature=="hasty":
+        elif self.nature=="hasty (+spd -defe)":
             self.spd_b=1.2
             self.def_b=0.8
 
-        elif self.nature=="jolly":
+        elif self.nature=="jolly (+spd -spatt)":
             self.spd_b=1.2
             self.spatt_b=0.8
 
-        elif self.nature=="naive":
+        elif self.nature=="naive (+spd -spdef)":
             self.spd_b=1.2
             self.spdef_b=0.8
         
-        elif self.nature=="modest":
+        elif self.nature=="modest (+spatt -att)":
             self.spatt_b=1.2
             self.att_b=0.8
 
-        elif self.nature=="mild":
+        elif self.nature=="mild (+spatt -defe)":
             self.spatt_b=1.2
             self.def_b=0.8
 
-        elif self.nature=="quiet":
+        elif self.nature=="quiet (+spatt -spd)":
             self.spatt_b=1.2
             self.spd_b=0.8
 
-        elif self.nature=="rash":
+        elif self.nature=="rash (+spatt -spdef)":
             self.spatt_b=1.2
             self.spdef_b=0.8
+        
+        elif self.nature=="calm (+spdef -att)":
+            self.spdef_b=1.2
+            self.att_b=0.8
+        
+        elif self.nature=="gentle (+spdef -defe)":
+            self.spdef_b=1.2
+            self.def_b=0.8
+        
+        elif self.nature=="sassy (+spdef -spd)":
+            self.spdef_b=1.2
+            self.spd_b=0.8
+        
+        elif self.nature=="carefule (+spdef -spatt)":
+            self.spdef_b=1.2
+            self.spatt_b=0.8
 
     #calculating stats
     def calc_stats(self):
