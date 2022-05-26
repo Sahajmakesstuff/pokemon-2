@@ -67,7 +67,9 @@ while d_choosing==0:
 
 #list of mons
 available_mons=["Zapper","Icy","Dracomenace", "Groundian",
-               "Stoney","Metaleon","Chunky","Misteon","Fisty"]
+               "Stoney","Metaleon","Chunky","Misteon","Fisty",
+               "Nasty","Brainy","Spooky",
+               "Birdy","Beetlebug","sludgemound"]
 
 #making new trainer_1 Bill
 trainer_1_mon=random.choice(available_mons)

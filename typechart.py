@@ -10,14 +10,14 @@ type_chart={
     ],
     "grass": [
         ["water","electric","ground","rock"],
-        ["fire","ice","dragon","steel"]
+        ["fire","ice","dragon","steel","flying"]
     ],
     "electric": [
-        ["water","steel"],
+        ["water","steel","flying"],
         ["grass","dragon","ground"]
     ],
     "ice": [
-        ["grass","dragon","ground"],
+        ["grass","dragon","ground","flying"],
         ["fire","water","rock","steel","fighting"]
     ],
     "dragon": [
@@ -26,26 +26,50 @@ type_chart={
     ],
     "ground": [
         ["fire","electric","rock","steel"],
-        ["water","grass","ice"]
+        ["water","grass","ice","flying"]
     ],
     "rock": [
-        ["fire","ice","normal"],
+        ["fire","ice","normal","flying"],
         ["water","grass","ground","steel","fighting"]
     ],
     "steel": [
-        ["ice","dragon","rock","normal","fairy","grass"],
-        ["fire","grass","electric","ground","fighting"]
+        ["ice","dragon","rock","normal","fairy","grass","flying","bug"],
+        ["fire","electric","ground","fighting"]
     ],
     "normal": [
         [],
-        ["rock","steel","fighting"]
+        ["rock","steel","fighting","ghost"]
     ],
-    "fairy": [
-        ["dragon","fighting"],
-        ["fire","steel"]
+    "fairy": [                                                      
+        ["dragon","fighting","dark"],                               
+        ["fire","steel","ghost","poison"]                           
     ],
     "fighting": [
-        ["ice","rock","steel","normal"],
-        ["fairy"]
+        ["ice","rock","steel","normal","dark"],
+        ["fairy","psychic","ghost","flying","bug","poison"]
+    ],
+    "dark": [
+        ["psychic","ghost"],
+        ["fairy","fighting","bug"]
+    ],
+    "psychic": [
+        ["fighting","poison"],
+        ["dark","ghost","bug"]
+    ],
+    "ghost": [
+        ["normal","fairy","fighting","psychic","bug","poison"],
+        ["dark"]
+    ],
+    "flying": [
+        ["grass","ground","fighting","bug"],
+        ["electric","ice","rock","steel"]
+    ],
+    "bug": [
+        ["grass","rock","fighting","dark","psychic"],
+        ["fire","steel","ghost","flying","poison"]
+    ],
+    "poison": [
+        ["grass","fairy","fighting","bug"],
+        ["ground","steel","psychic","ghost"]
     ]
 }

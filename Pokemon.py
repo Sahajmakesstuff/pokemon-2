@@ -230,7 +230,7 @@ class Pokemon:
                 moves["Moonblast"],
                 moves["Fairy Wind"],
                 moves["Tackle"],
-                moves["Body Slam"]
+                moves["Psychic"]
             ]
         
         #fisty
@@ -247,6 +247,114 @@ class Pokemon:
             self.moves=[
                 moves["Brick Break"],
                 moves["Karate Chop"],
+                moves["Tackle"],
+                moves["Earthquake"]
+            ]
+
+        #nasty
+        elif self.name=="Nasty":
+            self.type="dark"
+            self.lvl=50
+            self.base_hp=100
+            self.base_att=80
+            self.base_def=60
+            self.base_spd=130
+            self.base_spatt=80
+            self.base_spdef=60
+
+            self.moves=[
+                moves["Dark Pulse"],
+                moves["Knock Off"],
+                moves["Tackle"],
+                moves["Shadow Ball"]
+            ]
+        
+        #brainy
+        elif self.name=="Brainy":
+            self.type="psychic"
+            self.lvl=50
+            self.base_hp=50
+            self.base_att=40
+            self.base_def=60
+            self.base_spd=100
+            self.base_spatt=150
+            self.base_spdef=110
+
+            self.moves=[
+                moves["Psychic"],
+                moves["Psybeam"],
+                moves["Tackle"],
+                moves["Moonblast"]
+            ]
+        
+        #spooky
+        elif self.name=="spooky":
+            self.type="ghost"
+            self.lvl=50
+            self.base_hp=80
+            self.base_att=90
+            self.base_def=50
+            self.base_spd=100
+            self.base_spatt=90
+            self.base_spdef=100
+
+            self.moves=[
+                moves["Shadow Ball"],
+                moves["Shadow Claw"],
+                moves["Tackle"],
+                moves["Moonblast"]
+            ]
+        
+        #birdy
+        elif self.name=="Birdy":
+            self.type="flying"
+            self.lvl=50
+            self.base_hp=100
+            self.base_att=110
+            self.base_def=80
+            self.base_spd=70
+            self.base_spatt=75
+            self.base_spdef=75
+
+            self.moves=[
+                moves["Brave Bird"],
+                moves["Aerial Ace"],
+                moves["Tackle"],
+                moves["Earthquake"]
+            ]
+        
+        #Beetlebug
+        elif self.name=="Beetlebug":
+            self.type="bug"
+            self.lvl=50
+            self.base_hp=100
+            self.base_att=80
+            self.base_def=60
+            self.base_spd=130
+            self.base_spatt=80
+            self.base_spdef=60
+
+            self.moves=[
+                moves["X-scissor"],
+                moves["Infestation"],
+                moves["Tackle"],
+                moves["Sludge Bomb"]
+            ]
+
+        #Sludgemound
+        elif self.name=="Sludgemound":
+            self.type="poison"
+            self.lvl=50
+            self.base_hp=70
+            self.base_att=105
+            self.base_def=70
+            self.base_spd=95
+            self.base_spatt=100
+            self.base_spdef=70
+
+            self.moves=[
+                moves["Sludge Bomb"],
+                moves["Poison Jab"],
                 moves["Tackle"],
                 moves["Earthquake"]
             ]
