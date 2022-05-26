@@ -94,7 +94,9 @@ try:
 
             trainer_i.fight(player)
             player.heal()
-            input("\nPress Enter to start next battle ")
+
+            if i !=battles-1:
+                input("\nPress Enter to start next battle ")
     
     else:
         print("Invalid Number")

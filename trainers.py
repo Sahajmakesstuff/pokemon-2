@@ -181,7 +181,7 @@ class Trainer:
                         est_move_i=info_move_i.power*stab_c*effectiveness_c
 
                         #storing
-                        move_i=[est_move_i,info_move_i.name,Super_c,Not_c,info_move_i.contact]
+                        move_i=[est_move_i,info_move_i.name,Super_c,Not_c,info_move_i.contact,info_move_i.accuracy]
 
                         #adding to list
                         move_dmgs_c.append(move_i)
@@ -195,6 +195,8 @@ class Trainer:
 
                     rand_for_choice=random.randrange(0,4)
 
+                    move_used=[]
+
                     #1st choice
                     if rand_for_choice!=3:
                         move_used=first_choice
@@ -203,43 +205,55 @@ class Trainer:
                     else:
                         move_used=second_choice
 
-                    #random var for comp
-                    rand_c=random.randrange(8,11)
-                    rand_c=rand_c/10
+                    miss_c=False
+                    rand_acc_c=random.randrange(1,101)
 
-                    #crit vars for comp
-                    crit_c=random.randrange(1,17)
-                    crit_dmg_c=1
-                    critical_c=False
-
-                    #if crit
-                    if crit_c == 6:
-                        crit_dmg_c=1.5
-                        critical_c=True
-                    
-                    #if not crit
+                    if rand_acc_c<=move_used[5]:
+                        miss_c=False
                     else:
+                        miss_c=True
+
+                    if miss_c==False:
+                        #random var for comp
+                        rand_c=random.randrange(8,11)
+                        rand_c=rand_c/10
+
+                        #crit vars for comp
+                        crit_c=random.randrange(1,17)
                         crit_dmg_c=1
                         critical_c=False
+
+                        #if crit
+                        if crit_c == 6:
+                            crit_dmg_c=1.5
+                            critical_c=True
+                        
+                        #if not crit
+                        else:
+                            crit_dmg_c=1
+                            critical_c=False
+                        
+                        damage_c=0  
+
+                        if move_used[4]=="physical":
+                            damage_c=math.ceil((((22*move_used[0]*
+                                            self.pokemon[0].att/self.opponent.pokemon[0].defe)/25)+2)*
+                                            rand_c*crit_dmg_c)
+                        
+                        elif move_used[4]=="special":
+                            damage_c=math.ceil((((22*move_used[0]*
+                                            self.pokemon[0].spatt/self.opponent.pokemon[0].spdef)/25)+2)*
+                                            rand_c*crit_dmg_c)
+
+                        #capping maximum damage
+                        if damage_c>self.opponent.pokemon[0].hpIG:
+                            damage_c=self.opponent.pokemon[0].hpIG
+
+                        #calcing new hp
+                        self.opponent.pokemon[0].hpIG=self.opponent.pokemon[0].hpIG-damage_c
                     
-                    damage_c=0  
-
-                    if move_used[4]=="physical":
-                        damage_c=math.ceil((((22*move_used[0]*
-                                        self.pokemon[0].att/self.opponent.pokemon[0].defe)/25)+2)*
-                                        rand_c*crit_dmg_c)
-                    
-                    elif move_used[4]=="special":
-                        damage_c=math.ceil((((22*move_used[0]*
-                                        self.pokemon[0].spatt/self.opponent.pokemon[0].spdef)/25)+2)*
-                                        rand_c*crit_dmg_c)
-
-                    #capping maximum damage
-                    if damage_c>self.opponent.pokemon[0].hpIG:
-                        damage_c=self.opponent.pokemon[0].hpIG
-
-                    #calcing new hp
-                    self.opponent.pokemon[0].hpIG=self.opponent.pokemon[0].hpIG-damage_c
+                    else:
+                        print("The",move_used[1],"missed")
 
                     #if player is faster
                     if self.opponent.pokemon[0].spd>self.pokemon[0].spd:
@@ -265,75 +279,86 @@ class Trainer:
                                 break
                         else:
                             do_nothing=True
-                        
-                        #printing opp move used
-                        print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
 
-                        #super effective
-                        if move_used[2]==True:
-                            print("The",move_used[1],"Was Super Effective!")
-                        
-                        #not effective
-                        if move_used[3]==True:
-                            print("The",move_used[1],"was Not very Effective")
+                        if miss_c==False:
+                            #printing opp move used
+                            print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
 
-                        #critical hit
-                        if critical_c==True:
-                            print("The",move_used[1],"was A Critical Hit!")
-                        
-                        #printing damage
-                        print("The",move_used[1],"Did",damage_c,"HP of damage")
+                            #super effective
+                            if move_used[2]==True:
+                                print("The",move_used[1],"Was Super Effective!")
+                            
+                            #not effective
+                            if move_used[3]==True:
+                                print("The",move_used[1],"was Not very Effective")
 
-                        #if comp wins
-                        if self.opponent.pokemon[0].hpIG<=0:
-                            done=2
-                            break
+                            #critical hit
+                            if critical_c==True:
+                                print("The",move_used[1],"was A Critical Hit!")
+                            
+                            #printing damage
+                            print("The",move_used[1],"Did",damage_c,"HP of damage")
+
+                            #if comp wins
+                            if self.opponent.pokemon[0].hpIG<=0:
+                                done=2
+                                break
                         
+                        else:
+                            do_nothing=True
+
                     #if comp speed is more than player speed
                     if self.pokemon[0].spd>self.opponent.pokemon[0].spd:
+                        if miss_c==False:
+                            #printing opp move used
+                            print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
 
-                        #printing opp move used
-                        print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
+                            #super effective
+                            if move_used[2]==True:
+                                print("The",move_used[1],"Was Super Effective!")
 
-                        #super effective
-                        if move_used[2]==True:
-                            print("The",move_used[1],"Was Super Effective!")
+                            #not effective
+                            if move_used[3]==True:
+                                print("The",move_used[1],"was Not very Effective")
 
-                        #not effective
-                        if move_used[3]==True:
-                            print("The",move_used[1],"was Not very Effective")
+                            #critical hit
+                            if critical_c==True:
+                                print("The",move_used[1],"was A Critical Hit!")
+                            
+                            #printing damage
+                            print("The",move_used[1],"Did",damage_c,"HP of damage")
 
-                        #critical hit
-                        if critical_c==True:
-                            print("The",move_used[1],"was A Critical Hit!")
+                            #if comp wins
+                            if self.opponent.pokemon[0].hpIG<=0:
+                                done=2
+                                break
                         
-                        #printing damage
-                        print("The",move_used[1],"Did",damage_c,"HP of damage")
+                        else:
+                            do_nothing=True
 
-                        #if comp wins
-                        if self.opponent.pokemon[0].hpIG<=0:
-                            done=2
-                            break
+                        if Miss_p==False:
+                            #printing move used
+                            print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
+            
+                            #displaying text if super effective, not very effective, or crit
+                            if super_effective==True:
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")
+                            if not_effective==True:
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was not very Effective")
 
-                        #printing move used
-                        print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
-        
-                        #displaying text if super effective, not very effective, or crit
-                        if super_effective==True:
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")
-                        if not_effective==True:
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was not very Effective")
+                            if critical_hit==True:
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"Was a Critical Hit")
+                            
+                            #printing amount of damage done
+                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
 
-                        if critical_hit==True:
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"Was a Critical Hit")
+                            #if player wins
+                            if self.pokemon[0].hpIG<=0:
+                                done=1
+                                break
                         
-                        #printing amount of damage done
-                        print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
-
-                        #if player wins
-                        if self.pokemon[0].hpIG<=0:
-                            done=1
-                            break
+                        else:
+                            do_nothing=True
 
                 #Invalid move
                 else:

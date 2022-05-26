@@ -127,9 +127,17 @@ class Pokemon:
             self.base_spatt=130
             self.base_spdef=50
 
+            self.stab_options=["Thunderbolt","Thunder shock","Discharge","Spark",
+                              "Thunder Fang","Thunder","Thunder Punch","Wild Charge"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Thunderbolt"],
-                moves["Thundershock"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Flash Cannon"]
             ]
@@ -145,9 +153,17 @@ class Pokemon:
             self.base_spatt=110
             self.base_spdef=100
 
+            self.stab_options=["Ice Beam","Icy Wind","Blizzard","Ice Shard",
+                              "Icicle Crash","Ice Fang","Ice Punch","Powder Snow"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Ice Beam"],
-                moves["Icy Wind"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Moonblast"]
             ]
@@ -163,11 +179,19 @@ class Pokemon:
             self.base_spatt=100
             self.base_spdef=80
 
+            self.stab_options=["Dragon Claw","Dragon Breath","Draco Meteor","Dragon Pulse",
+                              "Outrage","Twister","Dragon Tail","Dual Chop"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Dragon Claw"],
-                moves["Dragon Breath"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
-                moves["Earthquake"]
+                moves["Flamethrower"]
             ]
         
         #groundian
@@ -181,9 +205,17 @@ class Pokemon:
             self.base_spatt=60
             self.base_spdef=100
 
+            self.stab_options=["Earthquake","Sand Tomb","Dig","Bulldoze",
+                              "Mud Bomb","Stomping Tantrum","Mud Slap","High Horsepower"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Earthquake"],
-                moves["Sand Tomb"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Rock Slide"]
             ]
@@ -464,7 +496,7 @@ class Pokemon:
             self.spdef_b=1.2
             self.spd_b=0.8
         
-        elif self.nature=="carefule (+spdef -spatt)":
+        elif self.nature=="careful (+spdef -spatt)":
             self.spdef_b=1.2
             self.spatt_b=0.8
 
