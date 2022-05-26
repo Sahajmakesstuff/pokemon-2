@@ -66,11 +66,12 @@ while d_choosing==0:
         print("Invalid Pokemon")
 
 #list of mons
-available_mons=["Flamey","Bubbly","Leafy","Zapper","Icy","Dracomenace",
-                "Groundian","Stoney","Metaleon","Chunky","Misteon","Fisty"]
+available_mons=["Zapper","Icy","Dracomenace", "Groundian",
+               "Stoney","Metaleon","Chunky","Misteon","Fisty"]
 
 #making new trainer_1 Bill
 trainer_1_mon=random.choice(available_mons)
+available_mons.remove(trainer_1_mon)
 trainer_1_mons=[]
 trainer_1_mons.append(trainer_1_mon)
 trainer_1=Trainer("Bill",trainer_1_mons)
@@ -83,3 +84,34 @@ player.pokemon =  our_mons
 trainer_1.fight(player)
 
 player.heal()
+
+input("Press Enter to start next Battle ")
+
+#making new trainer_2 abigail
+trainer_2_mon=random.choice(available_mons)
+available_mons.remove(trainer_2_mon)
+trainer_2_mons=[]
+trainer_2_mons.append(trainer_2_mon)
+trainer_2=Trainer("Abigail",trainer_2_mons)
+
+trainer_2.fight(player)
+
+player.heal()
+
+input("Press Enter to start Next Battle ")
+
+#making new trainer_3 Sam
+trainer_3_mon=random.choice(available_mons)
+available_mons.remove(trainer_3_mon)
+trainer_3_mons=[]
+trainer_3_mons.append(trainer_3_mon)
+trainer_3=Trainer("Sam",trainer_3_mons)
+
+trainer_3.fight(player)
+
+player.heal()
+
+print("\nAll The Battles have ended!")
+print("\nYou got",player.wins,"Win(s) &",player.losses,"Loss(es)")
+
+input("\nPress Enter to exit ")

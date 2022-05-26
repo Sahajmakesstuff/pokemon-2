@@ -4,7 +4,10 @@ import math
 from moves import *
 
 #list of natures
-list_nat=["lonely","brave","gentle","relaxed","timid","hasty","bashful"]
+list_nat=["lonely","brave","adamant","naughty",
+         "bold","relaxed","impish","lax",
+         "timid","hasty","jolly","naive",
+         "modest","mild","quiet","rash"]
 
 #pokemon class
 class Pokemon:
@@ -22,20 +25,26 @@ class Pokemon:
         self.att_IV=random.randrange(0,32)
         self.def_IV=random.randrange(0,32)
         self.spd_IV=random.randrange(0,32)
+        self.spatt_IV=random.randrange(0,32)
+        self.spdef_IV=random.randrange(0,32)
 
         #nature boosts
         self.att_b=1
         self.def_b=1
         self.spd_b=1
+        self.spatt_b=1
+        self.spdef_b=1
 
         #Flamey stats and moves
         if self.name=="Flamey":
             self.type="fire"
             self.lvl=50
             self.base_hp=80
-            self.base_att=100
+            self.base_att=75
             self.base_def=70
             self.base_spd=110
+            self.base_spatt=100
+            self.base_spdef=95
 
             self.moves=[
                 moves["Flamethrower"],
@@ -49,9 +58,11 @@ class Pokemon:
             self.type="water"
             self.lvl=50
             self.base_hp=100
-            self.base_att=90
-            self.base_def=100
+            self.base_att=70
+            self.base_def=110
             self.base_spd=70
+            self.base_spatt=80
+            self.base_spdef=100
 
             self.moves=[
                 moves["Surf"],
@@ -65,9 +76,11 @@ class Pokemon:
             self.type="grass"
             self.lvl=50
             self.base_hp=75
-            self.base_att=105
+            self.base_att=85
             self.base_def=100
             self.base_spd=80
+            self.base_spatt=85
+            self.base_spdef=105
 
             self.moves=[
                 moves["Solar Beam"],
@@ -80,10 +93,12 @@ class Pokemon:
         elif self.name=="Zapper":
             self.type="electric"
             self.lvl=50
-            self.base_hp=75
-            self.base_att=100
+            self.base_hp=60
+            self.base_att=70
             self.base_def=60
-            self.base_spd=125
+            self.base_spd=140
+            self.base_spatt=130
+            self.base_spdef=50
 
             self.moves=[
                 moves["Thunderbolt"],
@@ -97,9 +112,11 @@ class Pokemon:
             self.type="ice"
             self.lvl=50
             self.base_hp=60
-            self.base_att=110
+            self.base_att=50
             self.base_def=80
             self.base_spd=110
+            self.base_spatt=110
+            self.base_spdef=100
 
             self.moves=[
                 moves["Ice Beam"],
@@ -112,10 +129,12 @@ class Pokemon:
         elif self.name=="Dracomenace":
             self.type="dragon"
             self.lvl=50
-            self.base_hp=100
-            self.base_att=100
+            self.base_hp=80
+            self.base_att=130
             self.base_def=80
             self.base_spd=80
+            self.base_spatt=100
+            self.base_spdef=80
 
             self.moves=[
                 moves["Dragon Claw"],
@@ -129,9 +148,11 @@ class Pokemon:
             self.type="ground"
             self.lvl=50
             self.base_hp=90
-            self.base_att=125
+            self.base_att=140
             self.base_def=80
-            self.base_spd=60
+            self.base_spd=80
+            self.base_spatt=60
+            self.base_spdef=100
 
             self.moves=[
                 moves["Earthquake"],
@@ -146,8 +167,10 @@ class Pokemon:
             self.lvl=50
             self.base_hp=70
             self.base_att=105
-            self.base_def=130
+            self.base_def=140
             self.base_spd=55
+            self.base_spatt=50
+            self.base_spdef=90
 
             self.moves=[
                 moves["Rock Slide"],
@@ -164,6 +187,8 @@ class Pokemon:
             self.base_att=80
             self.base_def=100
             self.base_spd=50
+            self.base_spatt=70
+            self.base_spdef=80
 
             self.moves=[
                 moves["Flash Cannon"],
@@ -180,6 +205,8 @@ class Pokemon:
             self.base_att=80
             self.base_def=100
             self.base_spd=40
+            self.base_spatt=65
+            self.base_spdef=85
 
             self.moves=[
                 moves["Body Slam"],
@@ -193,9 +220,11 @@ class Pokemon:
             self.type="fairy"
             self.lvl=50
             self.base_hp=80
-            self.base_att=95
+            self.base_att=75
             self.base_def=85
             self.base_spd=100
+            self.base_spatt=110
+            self.base_spdef=100
 
             self.moves=[
                 moves["Moonblast"],
@@ -209,9 +238,11 @@ class Pokemon:
             self.type="fighting"
             self.lvl=50
             self.base_hp=45
-            self.base_att=130
-            self.base_def=100
+            self.base_att=150
+            self.base_def=120
             self.base_spd=85
+            self.base_spatt=30
+            self.base_spdef=80
 
             self.moves=[
                 moves["Brick Break"],
@@ -230,33 +261,75 @@ class Pokemon:
             self.att_b=1.2
             self.spd_b=0.8
 
-        elif self.nature=="gentle":
+        elif self.nature=="adamant":
+            self.att_b=1.2
+            self.spatt_b=0.8
+        
+        elif self.nature=="naughty":
+            self.att_b=1.2
+            self.spdef_b=0.8
+
+        elif self.nature=="bold":
             self.def_b=1.2
             self.att_b=0.8
-
+        
         elif self.nature=="relaxed":
             self.def_b=1.2
             self.spd_b=0.8
-
+        
+        elif self.nature=="impish":
+            self.def_b=1.2
+            self.spatt_b=0.8
+        
+        elif self.nature=="lax":
+            self.def_b=1.2
+            self.spdef_b=0.8
+        
         elif self.nature=="timid":
             self.spd_b=1.2
             self.att_b=0.8
-            
+
         elif self.nature=="hasty":
             self.spd_b=1.2
             self.def_b=0.8
 
+        elif self.nature=="jolly":
+            self.spd_b=1.2
+            self.spatt_b=0.8
+
+        elif self.nature=="naive":
+            self.spd_b=1.2
+            self.spdef_b=0.8
+        
+        elif self.nature=="modest":
+            self.spatt_b=1.2
+            self.att_b=0.8
+
+        elif self.nature=="mild":
+            self.spatt_b=1.2
+            self.def_b=0.8
+
+        elif self.nature=="quiet":
+            self.spatt_b=1.2
+            self.spd_b=0.8
+
+        elif self.nature=="rash":
+            self.spatt_b=1.2
+            self.spdef_b=0.8
+
     #calculating stats
     def calc_stats(self):
-        self.hp=math.ceil(self.base_hp*3+0.15*self.hp_IV)
-        self.att=math.ceil((self.base_att*2+0.1*self.att_IV)*self.att_b)
-        self.defe=math.ceil((self.base_def*2+0.1*self.def_IV)*self.def_b)
-        self.spd=math.ceil((self.base_spd*2+0.1*self.spd_IV)*self.spd_b)
+        self.hp=math.ceil(self.base_hp*3+0.15*self.hp_IV*self.lvl/50)
+        self.att=math.ceil((self.base_att*2+0.1*self.att_IV)*self.att_b*self.lvl/50)
+        self.defe=math.ceil((self.base_def*2+0.1*self.def_IV)*self.def_b*self.lvl/50)
+        self.spd=math.ceil((self.base_spd*2+0.1*self.spd_IV)*self.spd_b*self.lvl/50)
+        self.spatt=math.ceil((self.base_spatt*2+0.1*self.spatt_IV)*self.spatt_b*self.lvl/50)
+        self.spdef=math.ceil((self.base_spdef*2+0.1*self.spdef_IV)*self.spdef_b*self.lvl/50)
 
         self.hpIG=self.hp
 
         #adding stats to list
-        self.stats=[self.hp,self.att,self.defe,self.spd]
+        self.stats=[self.hp,self.att,self.defe,self.spd,self.spatt,self.spdef]
     
     #displaying all info
     def displaying(self):
@@ -269,6 +342,8 @@ class Pokemon:
         print("Attack is",self.att)
         print("Defence is",self.defe)
         print("Speed is",self.spd)
+        print("Special Attack is",self.spatt)
+        print("Special Defense is",self.spdef)
 
         print("\nMoves are:")
         for i in self.moves:

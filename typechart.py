@@ -33,7 +33,7 @@ type_chart={
         ["water","grass","ground","steel","fighting"]
     ],
     "steel": [
-        ["ice","dragon","rock","normal","fairy"],
+        ["ice","dragon","rock","normal","fairy","grass"],
         ["fire","grass","electric","ground","fighting"]
     ],
     "normal": [

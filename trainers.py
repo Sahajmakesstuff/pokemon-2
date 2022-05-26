@@ -11,6 +11,8 @@ class Trainer:
         self.name=name
         self.pokemon=[]
         self.opponent=0
+        self.wins=0
+        self.losses=0
 
         #making pokemon objects and adding to self.pokemon
         for i in pokemon_names:
@@ -101,10 +103,19 @@ class Trainer:
                         effect_p=0.5
                         not_effective=True
 
-                    #damage calculations
-                    damage_p=math.ceil((((22*self.opponent.pokemon[0].moves[move_chosen-1].power*
-                                    self.opponent.pokemon[0].att/self.pokemon[0].defe)/25)+2)*
-                                    stab_p *rand_p *effect_p *crit_dmg_p)
+                    damage_p=0  
+
+                    if self.opponent.pokemon[0].moves[move_chosen-1].contact=="physical":
+                        damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
+                                        self.opponent.pokemon[0].moves[move_chosen-1].power*
+                                        self.opponent.pokemon[0].att/self.pokemon[0].defe)/25)+2)*
+                                        stab_p *rand_p *effect_p *crit_dmg_p)
+                    
+                    elif self.opponent.pokemon[0].moves[move_chosen-1].contact=="special":
+                        damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
+                                        self.opponent.pokemon[0].moves[move_chosen-1].power*
+                                        self.opponent.pokemon[0].spatt/self.pokemon[0].spdef)/25)+2)*
+                                        stab_p *rand_p *effect_p *crit_dmg_p)
 
                     #if it does more than amount of hp
                     if damage_p>self.pokemon[0].hpIG:
@@ -156,7 +167,7 @@ class Trainer:
                         est_move_i=info_move_i.power*stab_c*effectiveness_c
 
                         #storing
-                        move_i=[est_move_i,info_move_i.name,Super_c,Not_c]
+                        move_i=[est_move_i,info_move_i.name,Super_c,Not_c,info_move_i.contact]
 
                         #adding to list
                         move_dmgs_c.append(move_i)
@@ -197,10 +208,17 @@ class Trainer:
                         crit_dmg_c=1
                         critical_c=False
                     
-                    #calcing comp damage
-                    damage_c=math.ceil((((22*move_used[0]*
-                                      self.pokemon[0].att/self.opponent.pokemon[0].defe)/25)+2)*
-                                      rand_c*crit_dmg_c)
+                    damage_c=0  
+
+                    if move_used[4]=="physical":
+                        damage_c=math.ceil((((22*move_used[0]*
+                                        self.pokemon[0].att/self.opponent.pokemon[0].defe)/25)+2)*
+                                        rand_c*crit_dmg_c)
+                    
+                    elif move_used[4]=="special":
+                        damage_c=math.ceil((((22*move_used[0]*
+                                        self.pokemon[0].spatt/self.opponent.pokemon[0].spdef)/25)+2)*
+                                        rand_c*crit_dmg_c)
 
                     #capping maximum damage
                     if damage_c>self.opponent.pokemon[0].hpIG:
@@ -312,11 +330,15 @@ class Trainer:
         if done==1:
             print("\nThe Opposing",self.pokemon[0].name,"Fainted!")
             print("You defeated",self.name,"!")
+            self.opponent.wins+=1
+            self.opponent.pokemon[0].lvl+=1
+            print("\nYour",self.opponent.pokemon[0].name,"grew to Level",self.opponent.pokemon[0].lvl)
         
         elif done==2:
             print("\n",self.opponent.pokemon[0].name,"Fainted!")
             print("You Lost to",self.name,"!")
             print("You Blacked out!")
+            self.opponent.losses+=1
 
     def heal(self):
         self.pokemon[0].hpIG=self.pokemon[0].hp
