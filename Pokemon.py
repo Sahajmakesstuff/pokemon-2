@@ -1,24 +1,34 @@
+#importing modules
 import random
 import math
 from moves import *
 
+#list of natures
 list_nat=["lonely","brave","gentle","relaxed","timid","hasty","bashful"]
 
+#pokemon class
 class Pokemon:
-    def __init__(self,name):
+    def __init__(self,name): #1 parameter name
         self.name=name
+
+        #selecting random nature
         self.nature=random.choice(list_nat)
+
+        #list of moves
         self.moves=[]
 
+        #IV's
         self.hp_IV=random.randrange(0,32)
         self.att_IV=random.randrange(0,32)
         self.def_IV=random.randrange(0,32)
         self.spd_IV=random.randrange(0,32)
 
+        #nature boosts
         self.att_b=1
         self.def_b=1
         self.spd_b=1
 
+        #Flamey stats and moves
         if self.name=="Flamey":
             self.type="fire"
             self.lvl=50
@@ -33,7 +43,8 @@ class Pokemon:
                 moves["Tackle"],
                 moves["Earthquake"]
             ]
-            
+
+        #bubbly  
         elif self.name=="Bubbly":
             self.type="water"
             self.lvl=50
@@ -49,6 +60,7 @@ class Pokemon:
                 moves["Ice Beam"]
             ]
         
+        #leafy
         elif self.name=="Leafy":
             self.type="grass"
             self.lvl=50
@@ -64,6 +76,7 @@ class Pokemon:
                 moves["Body Slam"]
             ]
         
+        #zapper
         elif self.name=="Zapper":
             self.type="electric"
             self.lvl=50
@@ -79,6 +92,7 @@ class Pokemon:
                 moves["Flash Cannon"]
             ]
         
+        #icy
         elif self.name=="Icy":
             self.type="ice"
             self.lvl=50
@@ -94,6 +108,7 @@ class Pokemon:
                 moves["Moonblast"]
             ]
         
+        #dracomenace
         elif self.name=="Dracomenace":
             self.type="dragon"
             self.lvl=50
@@ -109,6 +124,7 @@ class Pokemon:
                 moves["Earthquake"]
             ]
         
+        #groundian
         elif self.name=="Groundian":
             self.type="ground"
             self.lvl=50
@@ -124,7 +140,7 @@ class Pokemon:
                 moves["Rock Slide"]
             ]
 
-        #comment
+        #stoney
         elif self.name=="Stoney":
             self.type="rock"
             self.lvl=50
@@ -140,6 +156,7 @@ class Pokemon:
                 moves["Earthquake"]
             ]
         
+        #metaleon
         elif self.name=="Metaleon":
             self.type="steel"
             self.lvl=50
@@ -155,6 +172,7 @@ class Pokemon:
                 moves["Earthquake"]
             ]
         
+        #chunky
         elif self.name=="Chunky":
             self.type="normal"
             self.lvl=50
@@ -170,6 +188,7 @@ class Pokemon:
                 moves["Flamethrower"]
             ]
         
+        #misteon
         elif self.name=="Misteon":
             self.type="fairy"
             self.lvl=50
@@ -185,6 +204,7 @@ class Pokemon:
                 moves["Body Slam"]
             ]
         
+        #fisty
         elif self.name=="Fisty":
             self.type="fighting"
             self.lvl=50
@@ -200,6 +220,7 @@ class Pokemon:
                 moves["Earthquake"]
             ]
 
+    #nature boost
     def nat_b(self):
         if self.nature=="lonely":
             self.att_b=1.2
@@ -225,13 +246,19 @@ class Pokemon:
             self.spd_b=1.2
             self.def_b=0.8
 
+    #calculating stats
     def calc_stats(self):
         self.hp=math.ceil(self.base_hp*3+0.15*self.hp_IV)
         self.att=math.ceil((self.base_att*2+0.1*self.att_IV)*self.att_b)
         self.defe=math.ceil((self.base_def*2+0.1*self.def_IV)*self.def_b)
         self.spd=math.ceil((self.base_spd*2+0.1*self.spd_IV)*self.spd_b)
+
+        self.hpIG=self.hp
+
+        #adding stats to list
         self.stats=[self.hp,self.att,self.defe,self.spd]
     
+    #displaying all info
     def displaying(self):
         print("\nName is:",self.name)
         print("Type is:",self.type)

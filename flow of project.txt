@@ -18,6 +18,4 @@ fight(player, Trainer)
 
 Level_up()
 
-#COMMENT
-
 Heal()

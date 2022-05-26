@@ -1,10 +1,11 @@
+#The move class
 class Move:
-    def __init__(self,name,type,power):
+    def __init__(self,name,type,power): #3 parameters name,type,power for each move
         self.name=name
         self.type=type
         self.power=power
 
-#comment
+#move list
 moves = {
     "Flamethrower": Move("Flamethrower", "fire", 90),
     "Ember": Move("Ember","fire",40),

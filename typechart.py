@@ -25,7 +25,6 @@ type_chart={
         ["ice","steel","fairy"]
     ],
     "ground": [
-        #comment
         ["fire","electric","rock","steel"],
         ["water","grass","ice"]
     ],
