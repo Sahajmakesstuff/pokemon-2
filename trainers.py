@@ -65,64 +65,78 @@ class Trainer:
 
                 #if valid move
                 if move_chosen>0 and move_chosen<5:
-                    move_used=self.opponent.pokemon[0].moves[move_chosen-1].name
+                    move_used_p=self.opponent.pokemon[0].moves[move_chosen-1].name
 
-                    #var for stab
-                    stab_p=1
+                    Miss_p=False
 
-                    #if same type
-                    if self.opponent.pokemon[0].moves[move_chosen-1].type==self.opponent.pokemon[0].type:
-                        stab_p=1.5
+                    rand_acc_p=random.randrange(1,101)
+
+                    if rand_acc_p<=self.opponent.pokemon[0].moves[move_chosen-1].accuracy:
+                        Miss_p=False
+                    else:
+                        Miss_p=True
+
+                    if Miss_p==False:
+
+                        #var for stab
+                        stab_p=1
+
+                        #if same type
+                        if self.opponent.pokemon[0].moves[move_chosen-1].type==self.opponent.pokemon[0].type:
+                            stab_p=1.5
+                        
+                        #variables for crit
+                        crit_dmg_p=1
+                        crit_var_p=random.randrange(1,17)
+                        critical_hit=False
+
+                        #if 1/16 chance met, then crit
+                        if crit_var_p==10:
+                            critical_hit=True
+                            crit_dmg_p=1.5
+                        
+                        #random variable
+                        rand_p=random.randrange(8,11)
+                        rand_p=rand_p/10
+
+                        #effectiveness vars
+                        effect_p=1
+                        super_effective=False
+                        not_effective=False
+
+                        #if super effective
+                        if self.opponent.pokemon[0].moves[move_chosen-1].type in type_chart[self.pokemon[0].type][1]:
+                            effect_p=2
+                            super_effective=True
+
+                        #if not very effective
+                        elif self.opponent.pokemon[0].moves[move_chosen-1].type in type_chart[self.pokemon[0].type][0]:
+                            effect_p=0.5
+                            not_effective=True
+
+                        damage_p=0  
+
+                        if self.opponent.pokemon[0].moves[move_chosen-1].contact=="physical":
+                            damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
+                                            self.opponent.pokemon[0].moves[move_chosen-1].power*
+                                            self.opponent.pokemon[0].att/self.pokemon[0].defe)/25)+2)*
+                                            stab_p *rand_p *effect_p *crit_dmg_p)
+                        
+                        elif self.opponent.pokemon[0].moves[move_chosen-1].contact=="special":
+                            damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
+                                            self.opponent.pokemon[0].moves[move_chosen-1].power*
+                                            self.opponent.pokemon[0].spatt/self.pokemon[0].spdef)/25)+2)*
+                                            stab_p *rand_p *effect_p *crit_dmg_p)
+
+                        #if it does more than amount of hp
+                        if damage_p>self.pokemon[0].hpIG:
+                            damage_p=self.pokemon[0].hpIG
+
+                        #calcing new hp
+                        self.pokemon[0].hpIG=self.pokemon[0].hpIG-damage_p
                     
-                    #variables for crit
-                    crit_dmg_p=1
-                    crit_var_p=random.randrange(1,17)
-                    critical_hit=False
-
-                    #if 1/16 chance met, then crit
-                    if crit_var_p==10:
-                        critical_hit=True
-                        crit_dmg_p=1.5
-                    
-                    #random variable
-                    rand_p=random.randrange(8,11)
-                    rand_p=rand_p/10
-
-                    #effectiveness vars
-                    effect_p=1
-                    super_effective=False
-                    not_effective=False
-
-                    #if super effective
-                    if self.opponent.pokemon[0].moves[move_chosen-1].type in type_chart[self.pokemon[0].type][1]:
-                        effect_p=2
-                        super_effective=True
-
-                    #if not very effective
-                    elif self.opponent.pokemon[0].moves[move_chosen-1].type in type_chart[self.pokemon[0].type][0]:
-                        effect_p=0.5
-                        not_effective=True
-
-                    damage_p=0  
-
-                    if self.opponent.pokemon[0].moves[move_chosen-1].contact=="physical":
-                        damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
-                                        self.opponent.pokemon[0].moves[move_chosen-1].power*
-                                        self.opponent.pokemon[0].att/self.pokemon[0].defe)/25)+2)*
-                                        stab_p *rand_p *effect_p *crit_dmg_p)
-                    
-                    elif self.opponent.pokemon[0].moves[move_chosen-1].contact=="special":
-                        damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
-                                        self.opponent.pokemon[0].moves[move_chosen-1].power*
-                                        self.opponent.pokemon[0].spatt/self.pokemon[0].spdef)/25)+2)*
-                                        stab_p *rand_p *effect_p *crit_dmg_p)
-
-                    #if it does more than amount of hp
-                    if damage_p>self.pokemon[0].hpIG:
-                        damage_p=self.pokemon[0].hpIG
-
-                    #calcing new hp
-                    self.pokemon[0].hpIG=self.pokemon[0].hpIG-damage_p
+                    else:
+                        print("The",move_used_p,"Missed!")
                     
                     #stab for comp
                     stab_c=1
@@ -229,25 +243,28 @@ class Trainer:
 
                     #if player is faster
                     if self.opponent.pokemon[0].spd>self.pokemon[0].spd:
-                        #printing move used
-                        print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
+                        if Miss_p==False:
+                            #printing move used
+                            print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
 
-                        #displaying text if super effective, not very effective, or crit
-                        if super_effective==True:
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")
-                        if not_effective==True:
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was not very Effective")
+                            #displaying text if super effective, not very effective, or crit
+                            if super_effective==True:
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")
+                            if not_effective==True:
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was not very Effective")
 
-                        if critical_hit==True:
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"Was a Critical Hit")
-                        
-                        #printing amount of damage done
-                        print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
+                            if critical_hit==True:
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"Was a Critical Hit")
+                            
+                            #printing amount of damage done
+                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
 
-                        #if player wins
-                        if self.pokemon[0].hpIG<=0:
-                            done=1
-                            break
+                            #if player wins
+                            if self.pokemon[0].hpIG<=0:
+                                done=1
+                                break
+                        else:
+                            do_nothing=True
                         
                         #printing opp move used
                         print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
@@ -300,7 +317,7 @@ class Trainer:
 
                         #printing move used
                         print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
-
+        
                         #displaying text if super effective, not very effective, or crit
                         if super_effective==True:
                             print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")

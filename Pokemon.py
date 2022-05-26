@@ -19,6 +19,7 @@ class Pokemon:
 
         #list of moves
         self.moves=[]
+        self.stab_options=[]
 
         #IV's
         self.hp_IV=random.randrange(0,32)
@@ -46,9 +47,17 @@ class Pokemon:
             self.base_spatt=100
             self.base_spdef=95
 
+            self.stab_options=["Flamethrower","Ember","Fire Blast","Fire Punch",
+                              "Flare Blitz","Fire Fang","Heat Wave","Lava Plume"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Flamethrower"],
-                moves["Ember"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Earthquake"]
             ]
@@ -64,9 +73,17 @@ class Pokemon:
             self.base_spatt=80
             self.base_spdef=100
 
+            self.stab_options=["Surf","Water Gun","Crabhammer","Hydro Pump",
+                              "Liquidation","Muddy Water","Scald","Waterfall"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Surf"],
-                moves["Water Gun"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Ice Beam"]
             ]
@@ -82,11 +99,19 @@ class Pokemon:
             self.base_spatt=85
             self.base_spdef=105
 
+            self.stab_options=["Energy Ball","Vine Whip","Seed Bomb","Mega Drain",
+                              "Giga Drain","Leaf Storm","Leaf Blade","Horn Leech"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Solar Beam"],
-                moves["Vine Whip"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
-                moves["Body Slam"]
+                moves["X-Scissor"]
             ]
         
         #zapper
@@ -288,7 +313,7 @@ class Pokemon:
             ]
         
         #spooky
-        elif self.name=="spooky":
+        elif self.name=="Spooky":
             self.type="ghost"
             self.lvl=50
             self.base_hp=80
@@ -335,7 +360,7 @@ class Pokemon:
             self.base_spdef=60
 
             self.moves=[
-                moves["X-scissor"],
+                moves["X-Scissor"],
                 moves["Infestation"],
                 moves["Tackle"],
                 moves["Sludge Bomb"]

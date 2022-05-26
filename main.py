@@ -65,53 +65,42 @@ while d_choosing==0:
     except ValueError as ve:
         print("Invalid Pokemon")
 
-#list of mons
-available_mons=["Zapper","Icy","Dracomenace", "Groundian",
-               "Stoney","Metaleon","Chunky","Misteon","Fisty",
-               "Nasty","Brainy","Spooky",
-               "Birdy","Beetlebug","sludgemound"]
-
-#making new trainer_1 Bill
-trainer_1_mon=random.choice(available_mons)
-available_mons.remove(trainer_1_mon)
-trainer_1_mons=[]
-trainer_1_mons.append(trainer_1_mon)
-trainer_1=Trainer("Bill",trainer_1_mons)
-
 #making player object and making his pokemon=our_mons
 player=Trainer("player",[])
 player.pokemon =  our_mons
 
-#to make trainer_1 fight
-trainer_1.fight(player)
+#list of mons
+available_mons=["Zapper","Icy","Dracomenace", "Groundian",
+               "Stoney","Metaleon","Chunky","Misteon","Fisty",
+               "Nasty","Brainy","Spooky",
+               "Birdy","Beetlebug","Sludgemound"]
 
-player.heal()
+trainer_names=["Bill","Abigail","Sam","Chris","Marissa",
+              "James","Joey","Tristan","Timmy","Charlie"]
 
-input("Press Enter to start next Battle ")
+battles=input("\nEnter the Number of battles which you would like to have \n(Minimum is 3, Maximum is 10) ")
 
-#making new trainer_2 abigail
-trainer_2_mon=random.choice(available_mons)
-available_mons.remove(trainer_2_mon)
-trainer_2_mons=[]
-trainer_2_mons.append(trainer_2_mon)
-trainer_2=Trainer("Abigail",trainer_2_mons)
+try:
+    battles=int(battles)
+    if battles>2 and battles<11:
+        for i in range(0,battles):
+            trainer_i_mon=random.choice(available_mons)
+            available_mons.remove(trainer_i_mon)
+            trainer_i_mons=[]
+            trainer_i_mons.append(trainer_i_mon)
+            trainer_i_name=random.choice(trainer_names)
+            trainer_names.remove(trainer_i_name)
+            trainer_i=Trainer(trainer_i_name,trainer_i_mons)
 
-trainer_2.fight(player)
+            trainer_i.fight(player)
+            player.heal()
+            input("\nPress Enter to start next battle")
+    
+    else:
+        print("Invalid Number")
+except ValueError as ve:
+    print("Invalid Number")
 
-player.heal()
-
-input("Press Enter to start Next Battle ")
-
-#making new trainer_3 Sam
-trainer_3_mon=random.choice(available_mons)
-available_mons.remove(trainer_3_mon)
-trainer_3_mons=[]
-trainer_3_mons.append(trainer_3_mon)
-trainer_3=Trainer("Sam",trainer_3_mons)
-
-trainer_3.fight(player)
-
-player.heal()
 
 print("\nAll The Battles have ended!")
 print("\nYou got",player.wins,"Win(s) &",player.losses,"Loss(es)")

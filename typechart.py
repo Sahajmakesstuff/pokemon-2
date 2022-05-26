@@ -10,7 +10,7 @@ type_chart={
     ],
     "grass": [
         ["water","electric","ground","rock"],
-        ["fire","ice","dragon","steel","flying"]
+        ["fire","ice","dragon","steel","flying","poison"]
     ],
     "electric": [
         ["water","steel","flying"],
