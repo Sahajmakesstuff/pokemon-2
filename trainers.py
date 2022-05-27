@@ -18,6 +18,8 @@ class Trainer:
         for i in pokemon_names:
             pokemon_i=Pokemon(i)
             self.pokemon.append(pokemon_i)
+        
+        self.opponent=0
 
     #to print mons
     def print_mons(self):
@@ -383,6 +385,7 @@ class Trainer:
             self.opponent.losses+=1
 
     def heal(self):
+        
         self.pokemon[0].hpIG=self.pokemon[0].hp
         print("\nYour Pokemon were healed back to full HP!")
 

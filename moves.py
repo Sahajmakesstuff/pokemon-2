@@ -1,3 +1,9 @@
+import random
+
+bullet_seed_pow=[30,45,45,60,60,60,75,75,90]
+rollout_pow=[30,60,60,90,90,90,120,120,150]
+tail_slap_pow=[25,50,50,75,75,75,100,100,125]
+
 #The move class
 class Move:
     def __init__(self,name,type,power,contact,accuracy): #3 parameters name,type,power for each move
@@ -34,10 +40,10 @@ moves = {
     "Giga Drain": Move("Giga Drain","grass",75,"special",95),
     "Leaf Blade": Move("Leaf Blade","grass",90,"physical",95),
     "Leaf Storm": Move("Leaf Storm","grass",130,"special",80),
-    "Horn Leech": Move("Horn Leech","grass",75,"physical",95),
+    "Bullet Seed": Move("Bullet Seed","grass",random.choice(bullet_seed_pow),"physical",random.randrange(80,96)),
 
     "Thunderbolt": Move("Thunderbolt","electric",90,"special",95),
-    "Thundershock": Move("Thundershock","electric",40,"special",95),
+    "Thunder Shock": Move("Thunder Shock","electric",40,"special",95),
     "Discharge": Move("Discharge","electric",80,"special",95),
     "Spark": Move("Spark","electric",65,"physical",95),
     "Thunder Fang": Move("Thunder Fang","electric",65,"physical",90),
@@ -74,18 +80,48 @@ moves = {
 
     "Rock Slide": Move("Rock Slide","rock",75,"physical",90),
     "Rock Tomb": Move("Rock Tomb","rock",60,"physical",85),
+    "Stone Edge": Move("Stone Edge","rock",100,"physical",80),
+    "Power Gem": Move("Power Gem","rock",80,"special",95),
+    "Ancient Power": Move("Ancient Power","rock",60,"special",95),
+    "Rollout": Move("Rollout","rock",random.choice(rollout_pow),"physical",random.randrange(75,91)),
+    "Head Smash": Move("Head Smash","rock",150,"physical",80),
+    "Rock Throw": Move("Rock Throw","rock",40,"special",90),
 
     "Flash Cannon": Move("Flash Cannon","steel",80,"special",95),
     "Metal Claw": Move("Metal Claw","steel",50,"physical",95),
+    "Iron Head": Move("Iron Head","steel",80,"physical",95),
+    "Smart Strike": Move("Smart Strike","steel",70,"physical",100),
+    "Meteor Mash": Move("Meteor Mash","steel",100,"physical",85),
+    "Mirror Shot": Move("Mirror Shot","steel",65,"special",95),
+    "Bullet Punch": Move("Bullet Punch","steel",40,"physical",95),
+    "Steel Wing": Move("Steel Wing","steel",70,"physical",95),
 
     "Body Slam": Move("Body Slam","normal",80,"physical",95),
     "Tackle": Move("Tackle","normal",40,"physical",95),
+    "Headbutt": Move("Headbutt","normal",70,"physical",95),
+    "Strength": Move("Hyper Fang","normal",80,"physical",95),
+    "Hyper Voice": Move("Hyper Voice","normal",90,"special",95),
+    "Hyper Beam": Move("Hyper Beam","normal",150,"special",75),
+    "Explosion": Move("Explosion","normal",250,"physical",50),
+    "Tail Slap": Move("Tail Slap","normal",random.choice(tail_slap_pow),"physical",random.randrange(85,96)),
 
     "Moonblast": Move("Moonblast","fairy",95,"special",95),
     "Fairy Wind": Move("Fairy Wind","fairy",45,"special",95),
+    "Dazzling Gleam": Move("Dazzling Gleam","fairy",80,"special",95),
+    "Play Rough": Move("Play Rough","fairy",90,"physical",90),
+    "Spirit Break": Move("Spirit Break","fairy",75,"physical",95),
+    "Misty Explosion": Move("Misty Explosion","fairy",100,"physical",80),
+    "Disarming Voice": Move("Draining Kiss","fairy",40,"special",95),
+    "Draining Kiss": Move("Draining Kiss","fairy",50,"physical",95),
 
     "Brick Break": Move("Brick Break","fighting",75,"physical",95),
     "Karate Chop": Move("Karate Chop","fighting",50,"physical",95),
+    "Aura Sphere": Move("Aura Sphere","fighting",80,"special",100),
+    "Close Combat": Move("Close Combat","fighting",120,"physical",90),
+    "Cross Chop": Move("Cross Chop","fighting",100,"physical",80),
+    "Focus Blast": Move("Focus Blast","fighting",120,"special",70),
+    "Rock Smash": Move("Rock Smash","fighting",40,"physical",95),
+    "Superpower": Move("Superpower","fighting",120,"physical",85),
 
     "Dark Pulse": Move("Dark Pulse","dark",80,"special",95),
     "Knock Off": Move("Knock Off","dark",65,"physical",95),
