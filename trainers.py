@@ -3,6 +3,7 @@ from Pokemon import *
 import math
 import random
 from typechart import *
+from sec_effects import *
 
 #trainer class
 class Trainer:
@@ -46,7 +47,9 @@ class Trainer:
         #var for while loop
         done=0
         while done==0:
-            
+            self.opponent.pokemon[0].flinch=False
+            self.pokemon[0].flinch=False
+
             #printing current hp
             print("\nYour",self.opponent.pokemon[0].name,"is at",self.opponent.pokemon[0].hpIG,"HP")
             print("Opposing",self.pokemon[0].name,"is at",self.pokemon[0].hpIG,"HP")
@@ -71,10 +74,10 @@ class Trainer:
                     Miss_p=False
 
                     #var for accuracy check
-                    rand_acc_p=random.randrange(1,101)
+                    rand_acc_p=random.randrange(1,101)*100
 
                     #if we hit
-                    if rand_acc_p<=self.opponent.pokemon[0].moves[move_chosen-1].accuracy:
+                    if rand_acc_p<=self.opponent.pokemon[0].moves[move_chosen-1].accuracy*self.opponent.pokemon[0].accuracy:
                         Miss_p=False
                     
                     #if we miss
@@ -189,7 +192,7 @@ class Trainer:
                         est_move_i=info_move_i.power*stab_c*effectiveness_c
 
                         #storing
-                        move_i=[est_move_i,info_move_i.name,Super_c,Not_c,info_move_i.contact,info_move_i.accuracy]
+                        move_i=[est_move_i,info_move_i.name,Super_c,Not_c,info_move_i.contact,info_move_i.accuracy,info_move_i]
 
                         #adding to list
                         move_dmgs_c.append(move_i)
@@ -219,10 +222,10 @@ class Trainer:
                     miss_c=False
 
                     #accuracy check var for comp
-                    rand_acc_c=random.randrange(1,101)
+                    rand_acc_c=random.randrange(1,101)*100
 
                     #if comp hits
-                    if rand_acc_c<=move_used[5]:
+                    if rand_acc_c<=move_used[5]*self.pokemon[0].accuracy:
                         miss_c=False
                     
                     #if comp misses
@@ -289,33 +292,7 @@ class Trainer:
                             #printing amount of damage done
                             print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
 
-                            #var for effect chance checking
-                            eff_ch=random.randrange(1,101)
-
-                            #variable for recoil
-                            recoil_p=0
-
-                            #if burned by move
-                            if self.opponent.pokemon[0].moves[move_chosen-1].effect=="Burn":
-                                if eff_ch<=self.opponent.pokemon[0].moves[move_chosen-1].effect_chance and self.pokemon[0].hp!=0:
-                                    self.pokemon[0].status="Burn"
-                                    self.pokemon[0].att=self.pokemon[0].att/2
-                                    print("Opponent",self.pokemon[0].name,"was Burned")
-
-                            #if suffer recoil
-                            elif self.opponent.pokemon[0].moves[move_chosen-1].effect=="Recoil":
-                                recoil_p=math.ceil(damage_p/3)
-                                if recoil_p>self.opponent.pokemon[0].hpIG:
-                                    recoil_p=self.opponent.pokemon[0].hpIG
-
-                                self.opponent.pokemon[0].hp=self.opponent.pokemon[0].hpIG-recoil_p
-                                print("Your",self.opponent.pokemon[0].name,"took",recoil_p,"HP of recoil")
-                            
-                            #if defense dropped
-                            elif self.opponent.pokemon[0].moves[move_chosen-1].effect=="-defe":
-                                if eff_ch<=self.opponent.pokemon[0].moves[move_chosen-1].effect_chance and self.pokemon[0].hp!=0:
-                                    self.pokemon[0].defe=self.pokemon[0].defe*2/3
-                                    print("Opponent",self.pokemon[0].name,"'s Defense Fell")
+                            sec_eff(self.opponent.pokemon[0].moves[move_chosen-1],self.opponent.pokemon[0],self.pokemon[0],damage_p)
 
                             #if player wins
                             if self.pokemon[0].hpIG<=0:
@@ -328,31 +305,40 @@ class Trainer:
 
                         #if computer hits
                         if miss_c==False:   
-                            #calcing new hp
-                            self.opponent.pokemon[0].hpIG=self.opponent.pokemon[0].hpIG-damage_c
-
-                            #printing opp move used
-                            print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
-
-                            #super effective
-                            if move_used[2]==True:
-                                print("The",move_used[1],"Was Super Effective!")
                             
-                            #not effective
-                            if move_used[3]==True:
-                                print("The",move_used[1],"was Not very Effective")
+                            #if pokemon didn't flinch
+                            if self.pokemon[0].flinch==False:
+                                #calcing new hp
+                                self.opponent.pokemon[0].hpIG=self.opponent.pokemon[0].hpIG-damage_c
 
-                            #critical hit
-                            if critical_c==True:
-                                print("The",move_used[1],"was A Critical Hit!")
+                                #printing opp move used
+                                print("\nThe Opposing",self.pokemon[0].name,"Used",move_used[1])
+
+                                #super effective
+                                if move_used[2]==True:
+                                    print("The",move_used[1],"Was Super Effective!")
+                                
+                                #not effective
+                                if move_used[3]==True:
+                                    print("The",move_used[1],"was Not very Effective")
+
+                                #critical hit
+                                if critical_c==True:
+                                    print("The",move_used[1],"was A Critical Hit!")
+                                
+                                #printing damage
+                                print("The",move_used[1],"Did",damage_c,"HP of damage")
+
+                                sec_eff(move_used[6],self.pokemon[0],self.opponent.pokemon[0],damage_c)
+
+                                #if comp wins
+                                if self.opponent.pokemon[0].hpIG<=0:
+                                    done=2
+                                    break
                             
-                            #printing damage
-                            print("The",move_used[1],"Did",damage_c,"HP of damage")
-
-                            #if comp wins
-                            if self.opponent.pokemon[0].hpIG<=0:
-                                done=2
-                                break
+                            #if flinched
+                            else:
+                                print("\nOpponent",self.pokemon[0].name,"Flinched and Couldn't Move")
                         
                         #if comp misses
                         else:
@@ -397,6 +383,8 @@ class Trainer:
                             #printing damage
                             print("The",move_used[1],"Did",damage_c,"HP of damage")
 
+                            sec_eff(move_used[6],self.pokemon[0],self.opponent.pokemon[0],damage_c)
+
                             #if comp wins
                             if self.opponent.pokemon[0].hpIG<=0:
                                 done=2
@@ -409,55 +397,35 @@ class Trainer:
                         #if we don't miss
                         if Miss_p==False:
 
-                            #calcing new hp
-                            self.pokemon[0].hpIG=self.pokemon[0].hpIG-damage_p
+                            #if pokemon didn't flinch
+                            if self.opponent.pokemon[0].flinch==False:
+                                #calcing new hp
+                                self.pokemon[0].hpIG=self.pokemon[0].hpIG-damage_p
 
-                            #printing move used
-                            print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
-            
-                            #displaying text if super effective, not very effective, or crit
-                            if super_effective==True:
-                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")
-                            if not_effective==True:
-                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was not very Effective")
-                            if critical_hit==True:
-                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"Was a Critical Hit")
+                                #printing move used
+                                print("\nYour",self.opponent.pokemon[0].name,"used",self.opponent.pokemon[0].moves[move_chosen-1].name)
+                
+                                #displaying text if super effective, not very effective, or crit
+                                if super_effective==True:
+                                    print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was super Effective")
+                                if not_effective==True:
+                                    print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"was not very Effective")
+                                if critical_hit==True:
+                                    print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"Was a Critical Hit")
+                                
+                                #printing amount of damage done
+                                print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
+
+                                sec_eff(self.opponent.pokemon[0].moves[move_chosen-1],self.opponent.pokemon[0],self.pokemon[0],damage_p)
+
+                                #if player wins
+                                if self.pokemon[0].hpIG<=0:
+                                    done=1
+                                    break
                             
-                            #printing amount of damage done
-                            print("The",self.opponent.pokemon[0].moves[move_chosen-1].name,"did",damage_p,"HP of damage")
-
-                            #var for effect chance check
-                            eff_ch=random.randrange(1,101)
-
-                            #var for recoil
-                            recoil_p=0  
-
-                            #if burned by move
-                            if self.opponent.pokemon[0].moves[move_chosen-1].effect=="Burn":
-                                if eff_ch<=self.opponent.pokemon[0].moves[move_chosen-1].effect_chance:
-                                    self.opponent.pokemon[0].status="Burn"
-                                    self.pokemon[0].att=self.pokemon[0].att/2
-                                    print("Your",self.opponent.pokemon[0].name,"was Burned")
-                            
-                            #if suffer recoil
-                            elif self.opponent.pokemon[0].moves[move_chosen-1].effect=="Recoil":    
-                                recoil_p=math.ceil(damage_p/3)
-                                if recoil_p>self.opponent.pokemon[0].hpIG:
-                                    recoil_p=self.opponent.pokemon[0].hpIG
-
-                                self.opponent.pokemon[0].hp=self.opponent.pokemon[0].hpIG-recoil_p
-                                print("Your",self.opponent.pokemon[0].name,"took",recoil_p,"HP of recoil")
-                            
-                            #if defense dropped
-                            elif self.opponent.pokemon[0].moves[move_chosen-1].effect=="-defe":
-                                if eff_ch<=self.opponent.pokemon[0].moves[move_chosen-1].effect_chance and self.pokemon[0].hp!=0:
-                                    self.pokemon[0].defe=self.pokemon[0].defe*2/3
-                                    print("Opponent",self.pokemon[0].name,"'s Defense Fell")
-
-                            #if player wins
-                            if self.pokemon[0].hpIG<=0:
-                                done=1
-                                break
+                            #if flinched
+                            else:
+                                print("\nYour",self.opponent.pokemon[0].name,"Flinched and Couldn't Move")
                         
                         #if we miss
                         else:

@@ -16,6 +16,7 @@ class Pokemon:
     def __init__(self,name): #1 parameter name
         self.name=name
         self.status="none"
+        self.accuracy=100
 
         #selecting random nature
         self.nature=random.choice(list_nat)
@@ -23,6 +24,11 @@ class Pokemon:
         #list of moves
         self.moves=[]
         self.stab_options=[]
+
+        self.hp_dif=0
+
+        self.accuracy=100
+        self.flinch=False
 
         #IV's
         self.hp_IV=random.randrange(0,32)
@@ -467,7 +473,7 @@ class Pokemon:
             self.base_spdef=60
 
             self.stab_options=["X-Scissor","Infestation","Bug Buzz","Leech Life",
-                              "Silver Wind","Mega Horn","Pin Missile","Lunge"]
+                              "Silver Wind","Megahorn","Pin Missile","Lunge"]
             
             self.stab_move_1=random.choice(self.stab_options)
             self.stab_options.remove(self.stab_move_1)
