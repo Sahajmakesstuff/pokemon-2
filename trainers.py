@@ -1,5 +1,4 @@
 #importing modules
-from pickle import TRUE
 from Pokemon import *
 import math
 import random
