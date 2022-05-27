@@ -3,6 +3,7 @@ from Pokemon import *
 from moves import *
 from trainers import *
 
+#printing flavour text
 print("\nThere are 3 Pokemon for you to choose from")
 
 #initializing flamey
@@ -78,35 +79,52 @@ available_mons=["Zapper","Icy","Dracomenace", "Groundian",
                "Nasty","Brainy","Spooky",
                "Birdy","Beetlebug","Sludgemound"]
 
+#list of names
 trainer_names=["Bill","Abigail","Sam","Chris","Marissa",
               "James","Joey","Tristan","Timmy","Charlie"]
 
+#no of battles
 battles=input("\nEnter the Number of battles which you would like to have \n(Minimum is 3, Maximum is 10) ")
 
 try:
     battles=int(battles)
+
+    #if valid
     if battles>2 and battles<11:
         for i in range(0,battles):
+
+            #choosing random mon
             trainer_i_mon=random.choice(available_mons)
             available_mons.remove(trainer_i_mon)
             trainer_i_mons=[]
             trainer_i_mons.append(trainer_i_mon)
+
+            #choosing random name
             trainer_i_name=random.choice(trainer_names)
             trainer_names.remove(trainer_i_name)
+
+            #making Trainer object
             trainer_i=Trainer(trainer_i_name,trainer_i_mons)
 
+            #fighting with player
             trainer_i.fight(player)
+
+            #healing player's pokemon's health
             player.heal()
 
+            #press enter to start next battle
             if i !=battles-1:
                 input("\nPress Enter to start next battle ")
-    
+
+    #Invalid
     else:
         print("Invalid Number")
+
+#invalid
 except ValueError as ve:
     print("Invalid Number")
 
-
+#all battles have ended, no of wins and losses
 print("\nAll The Battles have ended!")
 print("\nYou got",player.wins,"Win(s) &",player.losses,"Loss(es)")
 

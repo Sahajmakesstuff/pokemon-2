@@ -15,6 +15,7 @@ list_nat=["lonely (+att -defe)","brave (+att -spd)","adamant (+att -spatt)","nau
 class Pokemon:
     def __init__(self,name): #1 parameter name
         self.name=name
+        self.status="none"
 
         #selecting random nature
         self.nature=random.choice(list_nat)
