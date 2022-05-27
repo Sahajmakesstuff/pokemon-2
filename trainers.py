@@ -377,6 +377,27 @@ class Trainer:
             self.opponent.wins+=1
             self.opponent.pokemon[0].lvl+=1
             print("\nYour",self.opponent.pokemon[0].name,"grew to Level",self.opponent.pokemon[0].lvl)
+
+            self.opponent.pokemon[0].newhp=math.ceil((self.opponent.pokemon[0].base_hp*3+0.15*self.opponent.pokemon[0].hp_IV*self.opponent.pokemon[0].lvl/50)+1)
+            self.opponent.pokemon[0].att=math.ceil((self.opponent.pokemon[0].base_att*2+0.1*self.opponent.pokemon[0].att_IV)*self.opponent.pokemon[0].att_b*self.opponent.pokemon[0].lvl/50)
+            self.opponent.pokemon[0].defe=math.ceil((self.opponent.pokemon[0].base_def*2+0.1*self.opponent.pokemon[0].def_IV)*self.opponent.pokemon[0].def_b*self.opponent.pokemon[0].lvl/50)
+            self.opponent.pokemon[0].spd=math.ceil((self.opponent.pokemon[0].base_spd*2+0.1*self.opponent.pokemon[0].spd_IV)*self.opponent.pokemon[0].spd_b*self.opponent.pokemon[0].lvl/50)
+            self.opponent.pokemon[0].spatt=math.ceil((self.opponent.pokemon[0].base_spatt*2+0.1*self.opponent.pokemon[0].spatt_IV)*self.opponent.pokemon[0].spatt_b*self.opponent.pokemon[0].lvl/50)
+            self.opponent.pokemon[0].spdef=math.ceil((self.opponent.pokemon[0].base_spdef*2+0.1*self.opponent.pokemon[0].spdef_IV)*self.opponent.pokemon[0].spdef_b*self.opponent.pokemon[0].lvl/50)
+
+            self.opponent.pokemon[0].hpdif=self.opponent.pokemon[0].newhp-self.opponent.pokemon[0].hp
+
+            if self.opponent.pokemon[0].hpdif==0:
+                self.opponent.pokemon[0].hpdif=2
+
+            self.opponent.pokemon[0].hp=self.opponent.pokemon[0].hp+self.opponent.pokemon[0].hpdif
+
+            print("Your HP grew to",self.opponent.pokemon[0].hp)
+            print("Your Attack grew to",self.opponent.pokemon[0].att)
+            print("Your Defense grew to",self.opponent.pokemon[0].defe)    
+            print("Your Speed grew to",self.opponent.pokemon[0].spd)       
+            print("Your Special Attack grew to",self.opponent.pokemon[0].spatt) 
+            print("Your Special Defense grew to",self.opponent.pokemon[0].spdef)
         
         elif done==2:
             print("\n",self.opponent.pokemon[0].name,"Fainted!")
@@ -385,7 +406,6 @@ class Trainer:
             self.opponent.losses+=1
 
     def heal(self):
-        
         self.pokemon[0].hpIG=self.pokemon[0].hp
         print("\nYour Pokemon were healed back to full HP!")
 

@@ -361,9 +361,17 @@ class Pokemon:
             self.base_spatt=80
             self.base_spdef=60
 
+            self.stab_options=["Dark Pulse","Knock Off","Crunch","Bite",
+                              "Night Slash","Snarl","Sucker Punch","Throat Chop"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Dark Pulse"],
-                moves["Knock Off"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Shadow Ball"]
             ]
@@ -379,9 +387,17 @@ class Pokemon:
             self.base_spatt=150
             self.base_spdef=110
 
+            self.stab_options=["Psychic","Psybeam","Psyche Punch","Confusion",
+                              "Psyshock","Zen Headbutt","Psycho Cut","Psywave"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Psychic"],
-                moves["Psybeam"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Moonblast"]
             ]
@@ -397,9 +413,17 @@ class Pokemon:
             self.base_spatt=90
             self.base_spdef=100
 
+            self.stab_options=["Shadow Ball","Shadow Claw","Hex","Shadow Punch",
+                              "Lick","Shadow Sneak","Poltergeist","Ominous Wind"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Shadow Ball"],
-                moves["Shadow Claw"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Moonblast"]
             ]
@@ -415,9 +439,17 @@ class Pokemon:
             self.base_spatt=75
             self.base_spdef=75
 
+            self.stab_options=["Brave Bird","Aerial Ace","Gust","Air Slash",
+                              "Fly","Drill Peck","Hurricane","Dual Wingbeat"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Brave Bird"],
-                moves["Aerial Ace"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Earthquake"]
             ]
@@ -433,9 +465,17 @@ class Pokemon:
             self.base_spatt=80
             self.base_spdef=60
 
+            self.stab_options=["X-Scissor","Infestation","Bug Buzz","Leech Life",
+                              "Silver Wind","Mega Horn","Pin Missile","Lunge"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["X-Scissor"],
-                moves["Infestation"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Sludge Bomb"]
             ]
@@ -451,9 +491,17 @@ class Pokemon:
             self.base_spatt=100
             self.base_spdef=70
 
+            self.stab_options=["Sludge Bomb","Poison Jab","Sludge Wave","Gunk Shot",
+                              "Cross Poison","Venoshock","Poison Fang","Acid"]
+            
+            self.stab_move_1=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_1)
+            self.stab_move_2=random.choice(self.stab_options)
+            self.stab_options.remove(self.stab_move_2)
+
             self.moves=[
-                moves["Sludge Bomb"],
-                moves["Poison Jab"],
+                moves[self.stab_move_1],
+                moves[self.stab_move_2],
                 moves["Tackle"],
                 moves["Earthquake"]
             ]
@@ -542,7 +590,7 @@ class Pokemon:
 
     #calculating stats
     def calc_stats(self):
-        self.hp=math.ceil(self.base_hp*3+0.15*self.hp_IV*self.lvl/50)
+        self.hp=math.ceil((self.base_hp*3+0.15*self.hp_IV*self.lvl/50)+1)
         self.att=math.ceil((self.base_att*2+0.1*self.att_IV)*self.att_b*self.lvl/50)
         self.defe=math.ceil((self.base_def*2+0.1*self.def_IV)*self.def_b*self.lvl/50)
         self.spd=math.ceil((self.base_spd*2+0.1*self.spd_IV)*self.spd_b*self.lvl/50)
