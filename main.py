@@ -8,21 +8,18 @@ print("\nThere are 3 Pokemon for you to choose from")
 
 #initializing flamey
 fire_mon=Pokemon("Flamey")
-fire_mon.lvl=55
 fire_mon.nat_b()
 fire_mon.calc_stats()
 fire_mon.displaying()
 
 #initializing bubbly
 water_mon=Pokemon("Bubbly")
-water_mon.lvl=55
 water_mon.nat_b()
 water_mon.calc_stats()
 water_mon.displaying()
 
 #initializing leafy
 grass_mon=Pokemon("Leafy")
-grass_mon.lvl=55
 grass_mon.nat_b()
 grass_mon.calc_stats()
 grass_mon.displaying()

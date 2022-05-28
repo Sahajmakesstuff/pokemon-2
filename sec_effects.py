@@ -10,11 +10,11 @@ def sec_eff(user_move,user_mon,opponent_mon,damage):
     hp_regained=0
 
     #if burned by move
-    if user_move.effect=="Burn":
+    if user_move.effect=="Burn" and opponent_mon.status=="none":
         if eff_ch<=user_move.effect_chance and opponent_mon.hp!=0:
             opponent_mon.status="Burn"
             opponent_mon.att=opponent_mon.att/2
-            print("Opponent",opponent_mon.name,"was Burned")
+            print(opponent_mon.name,"was Burned")
 
     #if suffer recoil
     elif user_move.effect=="Recoil":
@@ -23,19 +23,19 @@ def sec_eff(user_move,user_mon,opponent_mon,damage):
             recoil=user_mon.hpIG
 
         user_mon.hp=user_mon.hpIG-recoil
-        print("Your",user_mon.name,"took",recoil,"HP of recoil")
+        print(user_mon.name,"took",recoil,"HP of recoil")
     
     #if defense dropped
     elif user_move.effect=="-defe":
         if eff_ch<=user_move.effect_chance and opponent_mon.hp!=0:
             opponent_mon.defe=opponent_mon.defe*2/3
-            print("Opponent",opponent_mon.name,"'s Defense Fell")
+            print(opponent_mon.name,"'s Defense Fell")
     
     #if accuracy dropped
     elif user_move.effect=="-acc":
         if eff_ch<=user_move.effect_chance:
             opponent_mon.accuracy=2/3*opponent_mon.accuracy    
-            print("Opponent",opponent_mon.name,"'s Accuracy Fell")
+            print(opponent_mon.name,"'s Accuracy Fell")
     
     #if flinched
     elif user_move.effect=="flinch":
@@ -53,5 +53,22 @@ def sec_eff(user_move,user_mon,opponent_mon,damage):
             user_mon.hpIG=user_mon.hp
             hp_regained=difference
         
-        print("Your",user_mon.name,"Drained",hp_regained,"HP From",opponent_mon.name)
+        print(user_mon.name,"Drained",hp_regained,"HP From",opponent_mon.name)
+    
+    elif user_move.effect=="-2 spatt user":
+        user_mon.spatt=user_mon.spatt*4/9
+        print(user_mon.name,"'s Special Attack harshly Fell")
+    
+    elif user_move.effect=="paralysis" and opponent_mon.status=="none":
+        if eff_ch<=user_move.effect_chance and opponent_mon.hp!=0:
+            opponent_mon.status="paralysis"
+            opponent_mon.spd=opponent_mon.spd/2
+            print(opponent_mon.name,"was Paralysed")
+    
+    elif user_move.effect=="freeze" and opponent_mon.status=="none":
+        if eff_ch<=user_move.effect_chance and opponent_mon.hp!=0:
+            opponent_mon.status="freeze"
+            opponent_mon.att=opponent_mon.att/2
+            opponent_mon.spatt=opponent_mon.spatt/2
+            print(opponent_mon.name,"was Frozen")
     
