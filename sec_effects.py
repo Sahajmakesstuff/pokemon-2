@@ -72,3 +72,40 @@ def sec_eff(user_move,user_mon,opponent_mon,damage):
             opponent_mon.spatt=opponent_mon.spatt/2
             print(opponent_mon.name,"was Frozen")
     
+    elif user_move.effect=="confuse user":
+        user_mon.att=user_mon.att*2/3
+        user_mon.defe=user_mon.defe*2/3
+        user_mon.spd=user_mon.spd*2/3
+        user_mon.spatt=user_mon.spatt*2/3
+        user_mon.spdef=user_mon.spdef*2/3
+        print(user_mon.name,"was Confused")
+    
+    elif user_move.effect=="-spd":
+        if eff_ch<=user_move.effect_chance and opponent_mon.hp!=0:
+            opponent_mon.spd=opponent_mon.spd*2/3
+            print(opponent_mon,"'s Speed Fell")
+        
+    elif user_move.effect=="omniboost":
+        if eff_ch<=user_move.effect_chance:
+            user_mon.att=user_mon.att*3/2
+            user_mon.defe=user_mon.defe*3/2
+            user_mon.spd=user_mon.spd*3/2
+            user_mon.spatt=user_mon.spatt*3/2
+            user_mon.spdef=user_mon.spdef*3/2
+
+            print()
+            print(user_mon.name,"'s Attack Rose")
+            print(user_mon.name,"'s Defense Rose")
+            print(user_mon.name,"'s Speed Rose")
+            print(user_mon.name,"'s Special Attack Rose")
+            print(user_mon.name,"'s Special Defense Rose")
+    
+    elif user_move.effect=="+user att":
+        if eff_ch<=user_move.effect_chance:
+            user_mon.att=user_mon.att*3/2
+            print(user_mon,"'s Attack Rose")
+    
+    elif user_move.effect=="recharge":
+        user_mon.recharge+=1
+
+    

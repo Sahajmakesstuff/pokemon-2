@@ -110,7 +110,7 @@ moves = {
     "Headbutt": Move("Headbutt","normal",70,"physical",95,30,"flinch"),
     "Strength": Move("Hyper Fang","normal",80,"physical",95,0,"none"),
     "Hyper Voice": Move("Hyper Voice","normal",90,"special",95,0,"none"),
-    "Hyper Beam": Move("Hyper Beam","normal",150,"special",75,100,"recharge"),
+    "Hyper Beam": Move("Hyper Beam","normal",150,"special",90,100,"recharge"),
     "Explosion": Move("Explosion","normal",250,"physical",95,100,"kill user"),
     "Tail Slap": Move("Tail Slap","normal",random.choice(tail_slap_pow),"physical",random.randrange(85,96),30,"flinch"),
 

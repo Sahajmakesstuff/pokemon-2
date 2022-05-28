@@ -29,6 +29,9 @@ class Pokemon:
 
         self.accuracy=100
         self.flinch=False
+        self.priority=False
+
+        self.recharge=0
 
         #IV's
         self.hp_IV=random.randrange(0,32)
@@ -51,10 +54,10 @@ class Pokemon:
             self.lvl=50
             self.base_hp=80
             self.base_att=75
-            self.base_def=70
+            self.base_def=7000
             self.base_spd=110
             self.base_spatt=100
-            self.base_spdef=95
+            self.base_spdef=9500
 
             self.stab_options=["Flamethrower","Ember","Fire Blast","Fire Punch",
                               "Flare Blitz","Fire Fang","Heat Wave","Lava Plume"]
