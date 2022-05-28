@@ -17,6 +17,7 @@ class Pokemon:
         self.name=name
         self.status="none"
         self.accuracy=100
+        self.accuracyIG=self.accuracy
 
         #selecting random nature
         self.nature=random.choice(list_nat)
@@ -54,10 +55,10 @@ class Pokemon:
             self.lvl=50
             self.base_hp=80
             self.base_att=75
-            self.base_def=7000
+            self.base_def=70
             self.base_spd=110
             self.base_spatt=100
-            self.base_spdef=9500
+            self.base_spdef=95
 
             self.stab_options=["Flamethrower","Ember","Fire Blast","Fire Punch",
                               "Flare Blitz","Fire Fang","Heat Wave","Lava Plume"]
@@ -608,6 +609,11 @@ class Pokemon:
         self.spdef=math.ceil((self.base_spdef*2+0.1*self.spdef_IV)*self.spdef_b*self.lvl/50)
 
         self.hpIG=self.hp
+        self.attIG=self.att
+        self.defeIG=self.defe
+        self.spdIG=self.spd
+        self.spattIG=self.spatt
+        self.spdefIG=self.spdef
 
         #adding stats to list
         self.stats=[self.hp,self.att,self.defe,self.spd,self.spatt,self.spdef]

@@ -153,15 +153,21 @@ class Trainer:
                     if self.opponent.pokemon[0].moves[move_chosen-1].contact=="physical":
                         damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
                                         self.opponent.pokemon[0].moves[move_chosen-1].power*
-                                        self.opponent.pokemon[0].att/self.pokemon[0].defe)/25)+2)*
+                                        self.opponent.pokemon[0].attIG/self.pokemon[0].defeIG)/25)+2)*
                                         stab_p *rand_p *effect_p *crit_dmg_p)
                     
                     #damage if it is a special move
                     elif self.opponent.pokemon[0].moves[move_chosen-1].contact=="special":
                         damage_p=math.ceil(((((((2*self.opponent.pokemon[0].lvl)/5)+2)*
                                         self.opponent.pokemon[0].moves[move_chosen-1].power*
-                                        self.opponent.pokemon[0].spatt/self.pokemon[0].spdef)/25)+2)*
+                                        self.opponent.pokemon[0].spattIG/self.pokemon[0].spdefIG)/25)+2)*
                                         stab_p *rand_p *effect_p *crit_dmg_p)
+
+                    if doubled==True:
+                        damage_p=damage_p*2
+                    
+                    else:
+                        damage_p=damage_p
 
                     #if it does more than amount of hp
                     if damage_p>self.pokemon[0].hpIG:
@@ -275,14 +281,20 @@ class Trainer:
                     #if physical
                     if move_used[4]=="physical":
                         damage_c=math.ceil((((22*move_used[0]*
-                                        self.pokemon[0].att/self.opponent.pokemon[0].defe)/25)+2)*
+                                        self.pokemon[0].attIG/self.opponent.pokemon[0].defeIG)/25)+2)*
                                         rand_c*crit_dmg_c)
                     
                     #if special
                     elif move_used[4]=="special":
                         damage_c=math.ceil((((22*move_used[0]*
-                                        self.pokemon[0].spatt/self.opponent.pokemon[0].spdef)/25)+2)*
+                                        self.pokemon[0].spattIG/self.opponent.pokemon[0].spdefIG)/25)+2)*
                                         rand_c*crit_dmg_c)
+                    
+                    if doubled==True:
+                        damage_c=damage_c*2
+                    
+                    else:
+                        damage_c=damage_c
 
                     #capping maximum damage
                     if damage_c>self.opponent.pokemon[0].hpIG:
@@ -294,7 +306,6 @@ class Trainer:
                             #if we don't miss
                             if Miss_p==False:
                                 if player_para==False:
-
                                     #calcing new hp
                                     self.pokemon[0].hpIG=self.pokemon[0].hpIG-damage_p
                                         
@@ -317,6 +328,11 @@ class Trainer:
                                     #if player wins
                                     if self.pokemon[0].hpIG<=0:
                                         done=1
+                                        break
+                                    
+                                    #if self faint
+                                    if self.opponent.pokemon[0].hpIG<=0:
+                                        done=2
                                         break
                                 
                                 else:
@@ -362,6 +378,11 @@ class Trainer:
 
                                         sec_eff(move_used[6],self.pokemon[0],self.opponent.pokemon[0],damage_c)
 
+                                        #if comp self faints
+                                        if self.pokemon[0].hpIG<=0:
+                                            done=1
+                                            break
+                                    
                                         #if comp wins
                                         if self.opponent.pokemon[0].hpIG<=0:
                                             done=2
@@ -395,6 +416,18 @@ class Trainer:
                                 self.pokemon[0].hpIG=0
                                 done=1
                         
+                        #if comp hurts from poison
+                        if self.pokemon[0].status=="poison" and self.pokemon[0].hpIG!=0:
+                            self.pokemon[0].hpIG=math.ceil(self.pokemon[0].hpIG-(self.pokemon[0].hp*1/12))
+
+                            #displaying text
+                            print(self.pokemon[0].name,"Hurt from the Poison")
+
+                            #capping poison damage
+                            if self.pokemon[0].hpIG>0:
+                                self.pokemon[0].hpIG=0
+                                done=1
+                        
                         #if player hurts from burn
                         if self.opponent.pokemon[0].status=="Burn" and self.opponent.pokemon[0].hpIG!=0:
                             self.opponent.pokemon[0].hpIG=math.ceil(self.opponent.pokemon[0].hpIG-(self.opponent.pokemon[0].hp*1/12))
@@ -406,6 +439,28 @@ class Trainer:
                             if self.opponent.pokemon[0].hpIG>0:
                                 self.opponent.pokemon[0].hpIG=0
                                 done=2
+                        
+                        #if player hurts from poison
+                        if self.opponent.pokemon[0].status=="poison" and self.opponent.pokemon[0].hpIG!=0:
+                            self.opponent.pokemon[0].hpIG=math.ceil(self.opponent.pokemon[0].hpIG-(self.opponent.pokemon[0].hp*1/12))
+
+                            #displaying text
+                            print(self.opponent.pokemon[0].name,"Hurt from the Poison")
+
+                            #capping poison damage
+                            if self.opponent.pokemon[0].hpIG>0:
+                                self.opponent.pokemon[0].hpIG=0
+                                done=2
+                        
+                        #if player wins
+                        if self.pokemon[0].hpIG<=0:
+                            done=1
+                            break
+                        
+                        #if comp wins
+                        if self.opponent.pokemon[0].hpIG<=0:
+                            done=2
+                            break
 
                     #if comp speed is more than player speed
                     elif self.opponent.pokemon[0].spd<self.pokemon[0].spd:
@@ -436,6 +491,11 @@ class Trainer:
 
                                     sec_eff(move_used[6],self.pokemon[0],self.opponent.pokemon[0],damage_c)
 
+                                    #if comp self faints
+                                    if self.pokemon[0].hpIG<=0:
+                                        done=1
+                                        break
+                                
                                     #if comp wins
                                     if self.opponent.pokemon[0].hpIG<=0:
                                         done=2
@@ -460,6 +520,7 @@ class Trainer:
                                 #if pokemon didn't flinch
                                 if self.opponent.pokemon[0].flinch==False:
                                     if player_para==False:
+
                                         #calcing new hp
                                         self.pokemon[0].hpIG=self.pokemon[0].hpIG-damage_p
 
@@ -482,6 +543,11 @@ class Trainer:
                                         #if player wins
                                         if self.pokemon[0].hpIG<=0:
                                             done=1
+                                            break
+                                        
+                                        #if self faint
+                                        if self.opponent.pokemon[0].hpIG<=0:
+                                            done=2
                                             break
                                     
                                     else:
@@ -511,6 +577,17 @@ class Trainer:
                                 self.pokemon[0].hpIG=0
                                 done=1
                         
+                        #if comp is hurt by poison
+                        if self.pokemon[0].status=="poison" and self.pokemon[0].hpIG!=0:
+                            self.pokemon[0].hpIG=math.ceil(self.pokemon[0].hpIG-(self.pokemon[0].hp*1/12))
+
+                            print(self.pokemon[0].name,"Hurt from the Poison")
+
+                            #capping poison damage
+                            if self.pokemon[0].hpIG>0:
+                                self.pokemon[0].hpIG=0
+                                done=1
+                        
                         #if player hurts from burn
                         if self.opponent.pokemon[0].status=="Burn" and self.opponent.pokemon[0].hpIG!=0:
                             self.opponent.pokemon[0].hpIG=math.ceil(self.opponent.pokemon[0].hpIG-(self.opponent.pokemon[0].hp*1/12))
@@ -522,6 +599,28 @@ class Trainer:
                             if self.opponent.pokemon[0].hpIG>0:
                                 self.opponent.pokemon[0].hpIG=0
                                 done=2
+                        
+                        #if player hurts from poison
+                        if self.opponent.pokemon[0].status=="poison" and self.opponent.pokemon[0].hpIG!=0:
+                            self.opponent.pokemon[0].hpIG=math.ceil(self.opponent.pokemon[0].hpIG-(self.opponent.pokemon[0].hp*1/12))
+
+                            #displaying text
+                            print(self.opponent.pokemon[0].name,"Hurt from the Poison")
+
+                            #capping poison damage
+                            if self.opponent.pokemon[0].hpIG>0:
+                                self.opponent.pokemon[0].hpIG=0
+                                done=2
+
+                        #if player wins
+                        if self.pokemon[0].hpIG<=0:
+                            done=1
+                            break
+                        
+                        #if comp wins
+                        if self.opponent.pokemon[0].hpIG<=0:
+                            done=2
+                            break
 
                 #Invalid move
                 else:
@@ -581,6 +680,16 @@ class Trainer:
     #heal function for player
     def heal(self):
         self.pokemon[0].hpIG=self.pokemon[0].hp
+
+        self.pokemon[0].attIG=self.pokemon[0].att
+        self.pokemon[0].defeIG=self.pokemon[0].defe
+        self.pokemon[0].spdIG=self.pokemon[0].spd
+        self.pokemon[0].spattIG=self.pokemon[0].spatt
+        self.pokemon[0].spdefIG=self.pokemon[0].spdef
+        self.pokemon[0].accuracyIG=self.pokemon[0].accuracy
+
+        self.pokemon[0].status="none"
+
         print("\nYour Pokemon were healed back to full HP!")
 
 

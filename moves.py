@@ -9,7 +9,7 @@ tail_slap_pow=[25,50,50,75,75,75,100,100,125]
 #Secondary effects
 #Burn Recoil crit -def -acc flinch -spdef heal from opp -2 spatt user paralysis freeze priority
 #confuse user -spd omniboost +user att recharge kill user -spatt -att -defe -spdef user
-#-att -defe user remove item -spdef confusion uses def double if status double if poisoned
+#-att -defe user remove item -spdef confusion uses def double if status poison double if poisoned
 
 #The move class
 class Move:
