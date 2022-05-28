@@ -168,5 +168,18 @@ def sec_eff(user_move,user_mon,opponent_mon,damage):
             doubled=True
         else:
             doubled=False
+    
+    elif user_move.effect=="sleep" and opponent_mon.status=="none":
+        if eff_ch<=user_move.effect_chance and opponent_mon.hp!=0:
+            opponent_mon.status="sleep"
+            opponent_mon.defeIG=opponent_mon.defeIG/2
+            opponent_mon.spdefIG=opponent_mon.spdefIG/2
+            print(opponent_mon.name,"Fell Asleep")
+    
+    elif user_move.effect=="+att +spd user":
+        user_mon.attIG=user_mon.attIG*3/2
+        user_mon.spdIG=user_mon.spdIG*3/2
+        print(user_mon.name,"'s Attack Rose")
+        print(user_mon.name,"'s Speed Rose")
 
     

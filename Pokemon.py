@@ -71,7 +71,7 @@ class Pokemon:
             self.moves=[
                 moves[self.stab_move_1],
                 moves[self.stab_move_2],
-                moves["Tackle"],
+                moves["Will O Wisp"],
                 moves["Earthquake"]
             ]
 
@@ -123,7 +123,7 @@ class Pokemon:
             self.moves=[
                 moves[self.stab_move_1],
                 moves[self.stab_move_2],
-                moves["Tackle"],
+                moves["Sleep Powder"],
                 moves["Sludge Bomb"]
             ]
         

@@ -10,6 +10,7 @@ tail_slap_pow=[25,50,50,75,75,75,100,100,125]
 #Burn Recoil crit -def -acc flinch -spdef heal from opp -2 spatt user paralysis freeze priority
 #confuse user -spd omniboost +user att recharge kill user -spatt -att -defe -spdef user
 #-att -defe user remove item -spdef confusion uses def double if status poison double if poisoned
+#sleep +att +spd user 
 
 #The move class
 class Move:
@@ -32,6 +33,7 @@ moves = {
     "Fire Fang": Move("Fire Fang","fire",65,"physical",90,10,"Burn"),
     "Heat Wave": Move("Heat Wave","fire",95,"special",90,10,"Burn"),
     "Lava Plume": Move("Lava Plume","fire",80,"special",95,30,"Burn"),
+    "Will O Wisp": Move("Will O Wisp","fire",0,"status",85,100,"Burn"),
 
     "Surf": Move("Surf","water",90,"special",95,0,"none"),
     "Water Gun": Move("Water Gun","water",40,"special",95,0,"none"),
@@ -50,6 +52,7 @@ moves = {
     "Leaf Blade": Move("Leaf Blade","grass",90,"physical",95,100,"crits"),
     "Leaf Storm": Move("Leaf Storm","grass",130,"special",80,100,"-2 spatt user"),
     "Bullet Seed": Move("Bullet Seed","grass",random.choice(bullet_seed_pow),"physical",random.randrange(80,96),0,"none"),
+    "Sleep Powder": Move("Sleep Powder","grass",0,"status",75,100,"sleep"),
 
     "Thunderbolt": Move("Thunderbolt","electric",90,"special",95,10,"paralysis"),
     "Thunder Shock": Move("Thunder Shock","electric",40,"special",95,10,"paralysis"),
@@ -59,6 +62,7 @@ moves = {
     "Thunder": Move("Thunder","electric",110,"special",70,30,"paralysis"),
     "Thunder Punch": Move("Thunder Punch","electric",75,"physical",95,10,"paralysis"),
     "Wild Charge": Move("Wild Charge","electric",90,"physical",90,100,"recoil"),
+    "Thunder Wave": Move("Thunder Wave","electric",0,"status",95,100,"paralysis"),
 
     "Ice Beam": Move("Ice Beam","ice",90,"special",95,30,"freeze"),
     "Icy Wind": Move("Icy Wind","ice",55,"special",95,30,"freeze"),
@@ -68,6 +72,7 @@ moves = {
     "Ice Fang": Move("Ice Fang","ice",65,"physical",90,10,"flinch"),
     "Ice Punch": Move("Ice Punch","ice",75,"physical",95,30,"freeze"),
     "Powder Snow": Move("Powder Snow","ice",40,"special",95,30,"freeze"),
+    "Sheer Cold": Move("Sheer COld","ice",0,"status",60,100,"freeze"),
 
     "Dragon Claw": Move("Dragon Claw","dragon",80,"physical",95,0,"none"),
     "Dragon Breath": Move("Dragon Breath","dragon",60,"special",95,30,"paralysis"),
@@ -77,6 +82,7 @@ moves = {
     "Twister": Move("Twister","dragon",40,"special",95,20,"flinch"),
     "Dragon Tail": Move("Dragon Tail","dragon",60,"physical",90,20,"flinch"),
     "Dual Chop": Move("Dual Chop","dragon",80,"physical",95,0,"none"),
+    "Dragon Dance": Move("Dragon Dance","dragon",0,"status",100,100,"+att +spd user"),
 
     "Earthquake": Move("Earthquake","ground",100,"physical",95,0,"none"),
     "Sand Tomb": Move("Sand Tomb","ground",35,"special",85,10,"-acc"),
@@ -113,6 +119,7 @@ moves = {
     "Hyper Beam": Move("Hyper Beam","normal",150,"special",90,100,"recharge"),
     "Explosion": Move("Explosion","normal",250,"physical",95,100,"kill user"),
     "Tail Slap": Move("Tail Slap","normal",random.choice(tail_slap_pow),"physical",random.randrange(85,96),30,"flinch"),
+    "Growl": Move("Growl","normal",0,"status",95,100,"-att"), 
 
     "Moonblast": Move("Moonblast","fairy",95,"special",95,30,"-spatt"),
     "Fairy Wind": Move("Fairy Wind","fairy",45,"special",95,0,"none"),
